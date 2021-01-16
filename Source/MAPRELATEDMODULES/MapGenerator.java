@@ -19,8 +19,9 @@ public class MapGenerator {
         data = new mapData(Seed);
     }
 
-    public void Generate(){
+    public String[] Generate(){
         data.setSize(SizeW,SizeH);
-        data.DEBUG();
+        data.generateScale1();
+        return data.get();
     }
 }

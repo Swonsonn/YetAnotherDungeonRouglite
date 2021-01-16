@@ -117,23 +117,97 @@ public class mapData {
         }
     }
     
-    private void generateScale1(){
+    public void generateScale1(){
         for(int j=0;j<HeightScale1;++j){for(int i=0;i<WidthScale1;++i){set(i,j,'W');}}
         floorTree();
         for(int i=1;i<HeightScale1;++i)floorTree(i);
         uniteParts();
+
+        generateScale5();
+    }
+
+    private void solidWall(int x, int y){
+        for(int X=x*4;X<=x*4+4;++X){
+            for(int Y=y*4;Y<=y*4+4;++Y){
+                MapScale5[X][Y]='W';
+            }
+        }
+    }
+
+    private void room(int x, int y){
+        for(int Y=y*4;Y<=y*4+4;++Y){
+            MapScale5[x*4][Y]='W';
+            MapScale5[x*4+4][Y]='W';
+        }
+        for(int X=x*4;X<=x*4+4;++X){
+            MapScale5[X][y*4]='W';
+            MapScale5[X][y*4+4]='W';
+        }
+        if(x!=0)
+            if(MapScale1[x-1][y]=='O')
+                MapScale5[x*4][y*4+2]=' ';
+        if(x!=WidthScale1-1)
+            if(MapScale1[x+1][y]=='O')
+                MapScale5[x*4+4][y*4+2]=' ';
+        if(y!=0)
+            if(MapScale1[x][y-1]=='O')
+                MapScale5[x*4+2][y*4]=' ';
+        if(y!=HeightScale1-1)
+            if(MapScale1[x][y+1]=='O')
+                MapScale5[x*4+2][y*4+4]=' ';
+    }
+
+    private void enterRoom(int x, int y){
+        for(int X=x*4+1;X<=x*4+3;++X){
+            for(int Y=y*4+1;Y<=y*4+3;++Y){
+                MapScale5[X][Y]='f';
+            }
+        }
+        MapScale5[x*4+2][y*4+2]='X';
+    }
+
+    private void generateScale5(){
+        WidthScale5=1+(WidthScale1*4);
+        HeightScale5=1+(HeightScale1*4);
+        MapScale5=new char[WidthScale5][HeightScale5];
+        for(int y=0;y<HeightScale1;++y){
+            for(int x=0;x<WidthScale1;++x){
+                switch(MapScale1[x][y]){
+                    case 'W':{
+                        solidWall(x,y);
+                        break;
+                    }
+                    case 'O':{
+                        room(x,y);
+                        break;
+                    }
+                    case 'X':{
+                        enterRoom(x,y);
+                        break;
+                    }
+                }
+            }
+        }
     }
 
     public String[] get(){
+        MAP=new String[1+(HeightScale1*4)];
+        for(int j=0;j<HeightScale5;++j)
+            for(int i=0;i<WidthScale5;++i)
+                MAP[j]+=Character.toString(MapScale5[i][j]);
         return MAP;
     }
 
     public void DEBUG(){
         generateScale1();
-        for(int j=0;j<HeightScale1;++j){for(int i=0;i<WidthScale1;++i){System.out.print(MapScale1[i][j]);}System.out.println("");}
+        generateScale5();
+        //for(int j=0;j<HeightScale1;++j){for(int i=0;i<WidthScale1;++i){System.out.print(MapScale1[i][j]);}System.out.println("");}
+        for(int j=0;j<HeightScale5;++j){for(int i=0;i<WidthScale5;++i){System.out.print(MapScale5[i][j]);}System.out.println("");}
     }
 
-    public void set(int x, int y, char symbol){MapScale1[x][y]=symbol;}
+    private void set(int x, int y, char symbol){MapScale1[x][y]=symbol;}
 
-    public void setEnterPoint(int EnterX, int EnterY){this.EnterX=EnterX;this.EnterY=EnterY;MapScale1[EnterX][EnterY]='X';}
+    private void setEnterPoint(){
+
+    }
 }
