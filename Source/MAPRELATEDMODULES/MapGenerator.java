@@ -3,9 +3,9 @@ package MAPRELATEDMODULES;
 import MAPRELATEDMODULES.mapData;
 
 public class MapGenerator {
-    mapData data;
-    int SizeW;
-    int SizeH;
+    private mapData data;
+    public int SizeW;
+    public int SizeH;
 
     public MapGenerator(int SizeW, int SizeH){
         this.SizeH=SizeH;
@@ -21,7 +21,9 @@ public class MapGenerator {
 
     public String[] Generate(){
         data.setSize(SizeW,SizeH);
-        data.generateScale1();
+        data.generateScale();
+        //SizeW=1+(SizeW*4);
+        //SizeH=1+(SizeH*4);
         return data.get();
     }
 }

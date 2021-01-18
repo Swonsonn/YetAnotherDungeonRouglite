@@ -14,7 +14,7 @@ public class mapData {
     private int EnterX;
     private int EnterY;
     private char filler='W';
-    private Random rand;
+    private static Random rand;
 
     public mapData(long Seed){rand=new Random(Seed);}
 
@@ -96,7 +96,7 @@ public class mapData {
     }
 
     private void uniteParts(){
-        int NumOfConnectors= rand.nextInt(Math.abs((int)(HeightScale1*0.32)));
+        int NumOfConnectors= rand.nextInt(Math.abs((int)(HeightScale1*0.2)));
         int[] usedY=new int[NumOfConnectors];
         int y= rand.nextInt(HeightScale1);
         for(int i=0;i<NumOfConnectors;++i){
@@ -117,13 +117,13 @@ public class mapData {
         }
     }
     
-    public void generateScale1(){
+    public void generateScale(){
         for(int j=0;j<HeightScale1;++j){for(int i=0;i<WidthScale1;++i){set(i,j,'W');}}
         floorTree();
         for(int i=1;i<HeightScale1;++i)floorTree(i);
         uniteParts();
 
-        generateScale5();
+        //generateScale5();
     }
 
     private void solidWall(int x, int y){
@@ -145,16 +145,16 @@ public class mapData {
         }
         if(x!=0)
             if(MapScale1[x-1][y]=='O')
-                MapScale5[x*4][y*4+2]=' ';
+                MapScale5[x*4][y*4+2]='f';
         if(x!=WidthScale1-1)
             if(MapScale1[x+1][y]=='O')
-                MapScale5[x*4+4][y*4+2]=' ';
+                MapScale5[x*4+4][y*4+2]='f';
         if(y!=0)
             if(MapScale1[x][y-1]=='O')
-                MapScale5[x*4+2][y*4]=' ';
+                MapScale5[x*4+2][y*4]='f';
         if(y!=HeightScale1-1)
             if(MapScale1[x][y+1]=='O')
-                MapScale5[x*4+2][y*4+4]=' ';
+                MapScale5[x*4+2][y*4+4]='f';
     }
 
     private void enterRoom(int x, int y){
@@ -191,18 +191,13 @@ public class mapData {
     }
 
     public String[] get(){
-        MAP=new String[1+(HeightScale1*4)];
-        for(int j=0;j<HeightScale5;++j)
-            for(int i=0;i<WidthScale5;++i)
-                MAP[j]+=Character.toString(MapScale5[i][j]);
+        //MAP=new String[1+(HeightScale1*4)];
+        MAP=new String[HeightScale1];
+        for(int j=0;j<HeightScale1;++j){
+            MAP[j]="";
+            for(int i=0;i<WidthScale1;++i)
+                MAP[j]+=Character.toString(MapScale1[i][j]);}
         return MAP;
-    }
-
-    public void DEBUG(){
-        generateScale1();
-        generateScale5();
-        //for(int j=0;j<HeightScale1;++j){for(int i=0;i<WidthScale1;++i){System.out.print(MapScale1[i][j]);}System.out.println("");}
-        for(int j=0;j<HeightScale5;++j){for(int i=0;i<WidthScale5;++i){System.out.print(MapScale5[i][j]);}System.out.println("");}
     }
 
     private void set(int x, int y, char symbol){MapScale1[x][y]=symbol;}
