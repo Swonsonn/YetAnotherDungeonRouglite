@@ -21,9 +21,10 @@ public class MapGenerator {
 
     public String[] Generate(){
         data.setSize(SizeW,SizeH);
-        data.generateScale();
-        //SizeW=1+(SizeW*4);
-        //SizeH=1+(SizeH*4);
+        data.generateSkeleton();
+        data.generateFullSize();
+        SizeW=1+(SizeW*4);
+        SizeH=1+(SizeH*4);
         return data.get();
     }
 }

@@ -6,12 +6,16 @@ import java.awt.Graphics;
 import MAPRELATEDMODULES.MapGenerator;
 
 public class GameScreen extends JPanel{
-    MapGenerator mapgen;
+    private MapGenerator mapgen;
 
     public GameScreen(){
         super();
         this.setFocusable(true);
         mapgen=new MapGenerator(14,14);
+    }
+
+    public MapGenerator getMapgenCopy(){
+        return this.mapgen;
     }
 
     @Override
@@ -23,12 +27,12 @@ public class GameScreen extends JPanel{
 
         for(int y=0;y<mapgen.SizeH;++y) {
             for (int x = 0; x < mapgen.SizeW; ++x) {
-                switch (map[y].charAt(x)) {
+                switch (map[x].charAt(y)) {
                     case 'W': {
                         graphics.setColor(Color.DARK_GRAY);
                         break;
                     }
-                    case 'O': {
+                    case 'f': {
                         graphics.setColor(Color.LIGHT_GRAY);
                         break;
                     }
@@ -37,14 +41,9 @@ public class GameScreen extends JPanel{
                         break;
                     }
                 }
-                System.out.print(map[y].charAt(x));
-                graphics.fillRect(x * 32, y * 32, 32, 32);
+                graphics.fillRect(x * Window.RES, y * Window.RES, Window.RES, Window.RES);
             }
-            System.out.println();
         }
 
-
-
-        //repaint();
     }
 }

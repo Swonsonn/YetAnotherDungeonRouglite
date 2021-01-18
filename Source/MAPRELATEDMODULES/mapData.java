@@ -24,106 +24,62 @@ public class mapData {
         MapScale1=new char[WidthScale1][WidthScale1];
     }
 
-    private void floorTree(){
-        int NumberOfNodes=rand.nextInt(Math.abs((int)(WidthScale1*0.3)))+1;
-        for(int i=0;i<NumberOfNodes;++i){
-            int x=rand.nextInt(WidthScale1);
-            if(MapScale1[x][0]=='W')set(x,0,'O');
-        }
-    }
-
-    private void floorTree(int y){
-        int NodesOnThisLayer=0;
-        for(int x=0;x<WidthScale1;++x){
-            if(MapScale1[x][y-1]=='O'){
-                int NumOfNodesBefore=0;
-                int tempY=y-1;
-                while(tempY>=0){
-                    if(MapScale1[x][tempY]=='O'){NumOfNodesBefore++;}else{tempY=-1;}
-                    --tempY;
-                }
-                if(NumOfNodesBefore<=2){
-                    set(x,y,'O');
-                    NodesOnThisLayer++;
-                }else{
-                    if(rand.nextInt(1000)+1>150*NumOfNodesBefore){
-                        set(x,y,'O');
-                        NodesOnThisLayer++;
-                    }
-                }
-            }
-        }
-
-        NodesOnThisLayer=rand.nextInt(Math.abs((int)(WidthScale1*0.3)))+1-NodesOnThisLayer;
-        for(int i=0;i<NodesOnThisLayer;++i){
-            int x=rand.nextInt(WidthScale1);
-            if(MapScale1[x][y]=='W')set(x,y,'O');
-        }
-
-        for(int x=0;x<WidthScale1;++x){
-            if(MapScale1[x][y]=='O'){
-                int LeftRight= rand.nextInt(6)+1;
-                int Length=rand.nextInt(Math.abs((int)(WidthScale1*0.32)))+2;
-                switch(LeftRight){
-                    case 1:{//Left
-                        int tempX=x-1;
-                        while(tempX>=0 && Length>0){
-                            set(tempX,y,'O');
-                            --tempX;
-                            --Length;
-                        }
-                        break;
-                    }
-                    case 2:{//Right
-                        int tempX=x+1;
-                        while(tempX<WidthScale1 && Length>0){
-                            set(tempX,y,'O');
-                            ++tempX;
-                            --Length;
-                        }
-                        break;
-                    }
-                    case 3:case 4:case 5:case 6:{break;}
-                }
-            }
-        }
-    }
-
     private boolean contains(int[] array, int num){
         for(int i=0;i< array.length;++i)
             if(array[i]==num) return true;
         return false;
     }
-
-    private void uniteParts(){
-        int NumOfConnectors= rand.nextInt(Math.abs((int)(HeightScale1*0.2)));
-        int[] usedY=new int[NumOfConnectors];
-        int y= rand.nextInt(HeightScale1);
-        for(int i=0;i<NumOfConnectors;++i){
-            while(contains(usedY,y)){
-                y= rand.nextInt(HeightScale1);
+    
+    public void generateSkeleton(){
+        for(int j=0;j<HeightScale1;++j){for(int i=0;i<WidthScale1;++i){set(i,j,'W');}}
+        int numOfRooms=rand.nextInt((int)((WidthScale1*HeightScale1)*0.66));//maximum amount of all rooms
+        int CurrentNumOfRooms=2;//current amount of rooms
+        int[][] usedCords=new int[numOfRooms*10][2];//cords of created rooms 0-x, 1-y
+        setEnterPoint();
+        usedCords[0][0]=EnterX;
+        usedCords[0][1]=EnterY;
+        usedCords[1][0]=EnterX;
+        usedCords[1][1]=EnterY-1;
+        set(EnterX,EnterY-1,'O');
+        while(CurrentNumOfRooms<numOfRooms){
+            int dir=-1;//local var for direction
+            int sx,sy;//cords of points, where rooms will continue or not
+            int temp=rand.nextInt(CurrentNumOfRooms);//temp - from picked cords to direction
+            int counter=0;//counter of unsuccessful tries to find root
+            sx=usedCords[temp][0];
+            sy=usedCords[temp][1];
+            while(dir==-1 && counter<10){
+                temp= rand.nextInt(4)+1;//1-up 2-down 3-right 4-left
+                switch(temp){
+                    case 1:{--sy;break;}
+                    case 2:{++sy;break;}
+                    case 3:{++sx;break;}
+                    case 4:{--sx;break;}
+                }
+                if(sx>=0 && sx<WidthScale1 && sy>=0 && sy<HeightScale1){if(MapScale1[sx][sy]=='W')dir=temp;}
+                ++counter;
             }
-            usedY[i]=y;
-            int first=-1, last=-1;
-            for(int x=0;x<WidthScale1;++x){
-                if(MapScale1[x][y]=='O'){
-                    if(first==-1){
-                        first=x;
-                    }else{last=x;}
+            int tx=0,ty=0;
+            counter=0;
+            if(dir!=-1 && sx>=0 && sx<WidthScale1 && sy>=0 && sy<HeightScale1){
+                while(rand.nextInt(100)>35*(counter-3)){
+                    set(sx,sy,'O');
+                    usedCords[CurrentNumOfRooms][0]=sx;
+                    usedCords[CurrentNumOfRooms][1]=sy;
+                    ++CurrentNumOfRooms;
+                    ++counter;
+                    switch(dir){
+                        case 1:{--sy;ty=sy-1;tx=sx;break;}
+                        case 2:{++sy;ty=sy+1;tx=sx;break;}
+                        case 3:{++sx;tx=sx+1;ty=sy;break;}
+                        case 4:{--sx;tx=sx-1;ty=sy;break;}
+                    }
+                    if(tx<0 || tx>=WidthScale1 || ty<0 || ty>=HeightScale1){counter=100;}else
+                    if(MapScale1[tx][ty]=='O' || MapScale1[tx][ty]=='X')
+                        counter=100;
                 }
             }
-            for(int x=first;x<=last;++x)
-                set(x,y,'O');
         }
-    }
-    
-    public void generateScale(){
-        for(int j=0;j<HeightScale1;++j){for(int i=0;i<WidthScale1;++i){set(i,j,'W');}}
-        floorTree();
-        for(int i=1;i<HeightScale1;++i)floorTree(i);
-        uniteParts();
-
-        //generateScale5();
     }
 
     private void solidWall(int x, int y){
@@ -166,7 +122,7 @@ public class mapData {
         MapScale5[x*4+2][y*4+2]='X';
     }
 
-    private void generateScale5(){
+    public void generateFullSize(){
         WidthScale5=1+(WidthScale1*4);
         HeightScale5=1+(HeightScale1*4);
         MapScale5=new char[WidthScale5][HeightScale5];
@@ -191,18 +147,27 @@ public class mapData {
     }
 
     public String[] get(){
-        //MAP=new String[1+(HeightScale1*4)];
-        MAP=new String[HeightScale1];
-        for(int j=0;j<HeightScale1;++j){
+        MAP=new String[1+(HeightScale1*4)];
+        for(int j=0;j<HeightScale5;++j){
             MAP[j]="";
-            for(int i=0;i<WidthScale1;++i)
-                MAP[j]+=Character.toString(MapScale1[i][j]);}
+            for(int i=0;i<WidthScale5;++i)
+                MAP[j]+=Character.toString(MapScale5[i][j]);}
         return MAP;
     }
 
     private void set(int x, int y, char symbol){MapScale1[x][y]=symbol;}
 
-    private void setEnterPoint(){
+    public void DEBUTStandalone(){
+        for(int j=0;j<HeightScale1;++j){
+            for(int i=0;i<WidthScale1;++i)
+                System.out.print(MapScale1[i][j]);
+            System.out.println("");
+        }
+    }
 
+    private void setEnterPoint(){
+        EnterX=rand.nextInt((int)(WidthScale1*0.30))+(int)(WidthScale1*0.35);
+        EnterY=rand.nextInt((int)(HeightScale1*0.30))+(int)(HeightScale1*0.35);
+        set(EnterX,EnterY,'X');
     }
 }

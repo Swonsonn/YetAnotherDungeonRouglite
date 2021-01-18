@@ -8,9 +8,10 @@ public class Window {
 
     public static final int WIDTH=1600;//1600
     public static final int HEIGHT=1000;//1000
+    public static final int RES=10;
 
     public static void create(){
-        window=new JFrame("Bip-Bop");
+        window=new JFrame("GAME");
         window.setBounds(0,0, WIDTH, HEIGHT);
         window.setResizable(false);
 
