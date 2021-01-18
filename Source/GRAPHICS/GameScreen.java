@@ -44,6 +44,6 @@ public class GameScreen extends JPanel{
                 graphics.fillRect(x * Window.RES, y * Window.RES, Window.RES, Window.RES);
             }
         }
-
+        //repaint();
     }
 }

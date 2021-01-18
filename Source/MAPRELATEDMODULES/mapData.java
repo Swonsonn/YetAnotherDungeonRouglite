@@ -6,7 +6,9 @@ import java.util.Random;
 public class mapData {
     private char[][] MapScale1;
     private char[][] MapScale5;
+    private int[][] CordsOfRooms;
     private String[] MAP;
+    private int RoomCounter;
     private int WidthScale1;
     private int HeightScale1;
     private int WidthScale5;
@@ -15,6 +17,7 @@ public class mapData {
     private int EnterY;
     private char filler='W';
     private static Random rand;
+    private int ri;
 
     public mapData(long Seed){rand=new Random(Seed);}
 
@@ -33,6 +36,8 @@ public class mapData {
     public void generateSkeleton(){
         for(int j=0;j<HeightScale1;++j){for(int i=0;i<WidthScale1;++i){set(i,j,'W');}}
         int numOfRooms=rand.nextInt((int)((WidthScale1*HeightScale1)*0.66));//maximum amount of all rooms
+        RoomCounter=(int)(numOfRooms*0.43);
+        ri=0;
         int CurrentNumOfRooms=2;//current amount of rooms
         int[][] usedCords=new int[numOfRooms*10][2];//cords of created rooms 0-x, 1-y
         setEnterPoint();
@@ -91,26 +96,32 @@ public class mapData {
     }
 
     private void room(int x, int y){
-        for(int Y=y*4;Y<=y*4+4;++Y){
-            MapScale5[x*4][Y]='W';
-            MapScale5[x*4+4][Y]='W';
+        for(int Y=y*4;Y<=y*4+4;++Y)
+            for(int X=x*4;X<=x*4+4;++X){
+                MapScale5[X][Y]='W';
+            }
+        int t= rand.nextInt(100)+1;
+        if(t>=60 && RoomCounter>ri){
+            for(int X=x*4+1;X<=x*4+3;++X){
+                for(int Y=y*4+1;Y<=y*4+3;++Y){
+                    MapScale5[X][Y]='f';
+                }
+            }
+            ++ri;
         }
-        for(int X=x*4;X<=x*4+4;++X){
-            MapScale5[X][y*4]='W';
-            MapScale5[X][y*4+4]='W';
-        }
+        MapScale5[x*4+2][y*4+2]='f';
         if(x!=0)
-            if(MapScale1[x-1][y]=='O')
-                MapScale5[x*4][y*4+2]='f';
+            if(MapScale1[x-1][y]=='O' || MapScale1[x-1][y]=='X'){
+                MapScale5[x*4][y*4+2]='f';MapScale5[x*4+1][y*4+2]='f';}
         if(x!=WidthScale1-1)
-            if(MapScale1[x+1][y]=='O')
-                MapScale5[x*4+4][y*4+2]='f';
+            if(MapScale1[x+1][y]=='O' || MapScale1[x+1][y]=='X'){
+                MapScale5[x*4+4][y*4+2]='f';MapScale5[x*4+3][y*4+2]='f';}
         if(y!=0)
-            if(MapScale1[x][y-1]=='O')
-                MapScale5[x*4+2][y*4]='f';
+            if(MapScale1[x][y-1]=='O' || MapScale1[x][y-1]=='X'){
+                MapScale5[x*4+2][y*4]='f';MapScale5[x*4+2][y*4+1]='f';}
         if(y!=HeightScale1-1)
-            if(MapScale1[x][y+1]=='O')
-                MapScale5[x*4+2][y*4+4]='f';
+            if(MapScale1[x][y+1]=='O' || MapScale1[x][y+1]=='X'){
+                MapScale5[x*4+2][y*4+4]='f';MapScale5[x*4+2][y*4+3]='f';}
     }
 
     private void enterRoom(int x, int y){
@@ -120,6 +131,18 @@ public class mapData {
             }
         }
         MapScale5[x*4+2][y*4+2]='X';
+        if(x!=0)
+            if(MapScale1[x-1][y]=='O'){
+                MapScale5[x*4][y*4+2]='f';MapScale5[x*4+1][y*4+2]='f';}
+        if(x!=WidthScale1-1)
+            if(MapScale1[x+1][y]=='O'){
+                MapScale5[x*4+4][y*4+2]='f';MapScale5[x*4+3][y*4+2]='f';}
+        if(y!=0)
+            if(MapScale1[x][y-1]=='O'){
+                MapScale5[x*4+2][y*4]='f';MapScale5[x*4+2][y*4+1]='f';}
+        if(y!=HeightScale1-1)
+            if(MapScale1[x][y+1]=='O'){
+                MapScale5[x*4+2][y*4+4]='f';MapScale5[x*4+2][y*4+3]='f';}
     }
 
     public void generateFullSize(){
