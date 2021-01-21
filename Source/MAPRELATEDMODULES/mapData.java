@@ -13,8 +13,8 @@ public class mapData {
     private int HeightScale1;
     private int WidthScale5;
     private int HeightScale5;
-    private int EnterX;
-    private int EnterY;
+    public int EnterX;
+    public int EnterY;
     private char filler='W';
     private static Random rand;
     private int ri;

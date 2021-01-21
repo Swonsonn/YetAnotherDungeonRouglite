@@ -27,4 +27,7 @@ public class MapGenerator {
         SizeH=1+(SizeH*4);
         return data.get();
     }
+
+    public int getX(){return data.EnterX;}
+    public int getY(){return data.EnterY;}
 }

@@ -3,6 +3,9 @@ package GRAPHICS;
 import javax.swing.*;
 import java.awt.Color;
 import java.awt.Graphics;
+
+import LOGIC.GameLogic;
+import LOGIC.KB;
 import MAPRELATEDMODULES.MapGenerator;
 
 public class GameScreen extends JPanel{
@@ -14,6 +17,7 @@ public class GameScreen extends JPanel{
         res=new ResourcesManager();
         this.setFocusable(true);
         mapgen=new MapGenerator(14,14);
+        this.addKeyListener(new KB());
     }
 
     public MapGenerator getMapgenCopy(){
@@ -48,7 +52,9 @@ public class GameScreen extends JPanel{
 
             }
         }
+        GameLogic logic = new GameLogic(graphics);
+        logic.initialise(mapgen.getX(), mapgen.getY());
+
         }
-        //repaint();
     }
 
