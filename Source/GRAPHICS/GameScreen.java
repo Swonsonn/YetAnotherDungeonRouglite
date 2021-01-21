@@ -7,9 +7,11 @@ import MAPRELATEDMODULES.MapGenerator;
 
 public class GameScreen extends JPanel{
     private MapGenerator mapgen;
+    private static ResourcesManager res;
 
     public GameScreen(){
         super();
+        res=new ResourcesManager();
         this.setFocusable(true);
         mapgen=new MapGenerator(14,14);
     }
@@ -29,21 +31,24 @@ public class GameScreen extends JPanel{
             for (int x = 0; x < mapgen.SizeW; ++x) {
                 switch (map[x].charAt(y)) {
                     case 'W': {
-                        graphics.setColor(Color.DARK_GRAY);
+                        graphics.drawImage(res.get("wall"),x* Window.RES,y* Window.RES,Window.RES,Window.RES,null);
                         break;
                     }
                     case 'f': {
                         graphics.setColor(Color.LIGHT_GRAY);
+                        graphics.fillRect(x * Window.RES, y * Window.RES, Window.RES, Window.RES);
                         break;
                     }
                     case 'X': {
                         graphics.setColor(Color.RED);
+                        graphics.fillRect(x * Window.RES, y * Window.RES, Window.RES, Window.RES);
                         break;
                     }
                 }
-                graphics.fillRect(x * Window.RES, y * Window.RES, Window.RES, Window.RES);
+
             }
+        }
         }
         //repaint();
     }
-}
+
