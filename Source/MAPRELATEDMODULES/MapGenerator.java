@@ -6,6 +6,8 @@ public class MapGenerator {
     private mapData data;
     public int SizeW;
     public int SizeH;
+    public int X;
+    public int Y;
 
     public MapGenerator(int SizeW, int SizeH){
         this.SizeH=SizeH;
@@ -23,11 +25,10 @@ public class MapGenerator {
         data.setSize(SizeW,SizeH);
         data.generateSkeleton();
         data.generateFullSize();
+        X= data.X();
+        Y= data.Y();
         SizeW=1+(SizeW*4);
         SizeH=1+(SizeH*4);
         return data.get();
     }
-
-    public int getX(){return data.EnterX;}
-    public int getY(){return data.EnterY;}
 }

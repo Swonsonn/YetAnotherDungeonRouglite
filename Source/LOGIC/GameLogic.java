@@ -1,19 +1,22 @@
 package LOGIC;
 
 import javax.swing.Timer;
-import java.awt.*;
 
 public class GameLogic {
     public static entity PLAYER;
     private static Timer timer;
-    private static Graphics graphics;
 
-    public GameLogic(Graphics graphics){
-        GameLogic.graphics =graphics;
+    public static void initialise(){
+        PLAYER=new entity("player",0,0);
+        timer = new Timer(15,new Loops());
+        timer.start();
+        System.out.println("[Logic]Initialised");
     }
 
-    public void initialise(int x, int y){
-        PLAYER=new entity("player",x,y);
-        timer = new Timer(15,new Loops(graphics));
+    public static void move(int dx, int dy){
+        System.out.println("Order to move by "+dx+" "+dy);
+        PLAYER.setPos(dx,dy);
     }
+
+    public static entity player(){return PLAYER;}
 }

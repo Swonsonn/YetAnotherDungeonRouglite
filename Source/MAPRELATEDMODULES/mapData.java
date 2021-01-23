@@ -13,8 +13,8 @@ public class mapData {
     private int HeightScale1;
     private int WidthScale5;
     private int HeightScale5;
-    public int EnterX;
-    public int EnterY;
+    private int EnterX=0;
+    private int EnterY=0;
     private char filler='W';
     private static Random rand;
     private int ri;
@@ -187,6 +187,10 @@ public class mapData {
             System.out.println("");
         }
     }
+
+    public int X(){return EnterX;}
+
+    public int Y(){return EnterY;}
 
     private void setEnterPoint(){
         EnterX=rand.nextInt((int)(WidthScale1*0.30))+(int)(WidthScale1*0.35);

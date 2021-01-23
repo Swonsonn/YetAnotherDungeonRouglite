@@ -14,8 +14,9 @@ public class ResourcesManager {
         for(File file:folder.listFiles()){
             try{
                 textures.put(file.getName().replaceAll(".png",""), ImageIO.read(file));
+                System.out.println("[Resources]"+file.getName()+" loaded");
             }catch (IOException err){
-
+                System.out.println("[Resources]Error: "+file.getName()+" can not be loaded");
             }
         }
     }

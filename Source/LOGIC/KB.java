@@ -5,16 +5,16 @@ import java.awt.event.KeyListener;
 public class KB implements KeyListener{
     private static boolean[] keys;
 
-    public KB(){keys=new boolean[101];}
+    public KB(){keys=new boolean[190];}
 
     @Override
     public void keyTyped(KeyEvent e) {
-        keys[e.getKeyCode()]=true;
+
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-
+        keys[e.getKeyCode()]=true;
     }
 
     @Override

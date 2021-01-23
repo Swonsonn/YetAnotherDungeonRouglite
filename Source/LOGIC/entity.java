@@ -17,14 +17,9 @@ public class entity {
         entity.Y =Y;
     }
 
-    public void render(Graphics graphics){
-        BufferedImage texture = ResourcesManager.get(name);
-        graphics.drawImage(texture,X* GRAPHICS.Window.RES,Y* GRAPHICS.Window.RES, GRAPHICS.Window.RES, Window.RES,null);
-    }
-
     public void setPos(int x, int y){
-        X+=x;
-        Y+=y;
+        X = X + x;
+        Y = Y + y;
         System.out.println("X:"+X+" Y:"+Y);
     }
 
