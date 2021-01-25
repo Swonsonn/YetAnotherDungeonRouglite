@@ -1,11 +1,5 @@
 package LOGIC;
 
-import GRAPHICS.ResourcesManager;
-import GRAPHICS.Window;
-
-import java.awt.*;
-import java.awt.image.BufferedImage;
-
 public class entity {
     private static String name;
     private static int X;
@@ -13,8 +7,8 @@ public class entity {
 
     public entity(String name,int X,int Y){
         entity.name =name;
-        entity.X =X;
-        entity.Y =Y;
+        entity.X=X;
+        entity.Y=Y;
     }
 
     public void setPos(int x, int y){

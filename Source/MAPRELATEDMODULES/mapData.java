@@ -27,12 +27,6 @@ public class mapData {
         MapScale1=new char[WidthScale1][WidthScale1];
     }
 
-    private boolean contains(int[] array, int num){
-        for(int i=0;i< array.length;++i)
-            if(array[i]==num) return true;
-        return false;
-    }
-    
     public void generateSkeleton(){
         for(int j=0;j<HeightScale1;++j){for(int i=0;i<WidthScale1;++i){set(i,j,'W');}}
         int numOfRooms=rand.nextInt((int)((WidthScale1*HeightScale1)*0.66));//maximum amount of all rooms
@@ -179,14 +173,6 @@ public class mapData {
     }
 
     private void set(int x, int y, char symbol){MapScale1[x][y]=symbol;}
-
-    public void DEBUTStandalone(){
-        for(int j=0;j<HeightScale1;++j){
-            for(int i=0;i<WidthScale1;++i)
-                System.out.print(MapScale1[i][j]);
-            System.out.println("");
-        }
-    }
 
     public int X(){return EnterX;}
 

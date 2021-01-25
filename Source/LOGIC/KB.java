@@ -9,12 +9,12 @@ public class KB implements KeyListener{
 
     @Override
     public void keyTyped(KeyEvent e) {
-
+        keys[e.getKeyCode()]=true;
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        keys[e.getKeyCode()]=true;
+        keys[e.getKeyCode()]=false;
     }
 
     @Override

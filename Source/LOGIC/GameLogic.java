@@ -8,7 +8,7 @@ public class GameLogic {
 
     public static void initialise(){
         PLAYER=new entity("player",0,0);
-        timer = new Timer(15,new Loops());
+        timer = new Timer(120,new Loops());
         timer.start();
         System.out.println("[Logic]Initialised");
     }
