@@ -13,21 +13,23 @@ public class mapData {
     private int HeightScale1;
     private int WidthScale5;
     private int HeightScale5;
-    private int EnterX=0;
-    private int EnterY=0;
+    private int EnterX;
+    private int EnterY;
     private char filler='W';
     private static Random rand;
     private int ri;
 
-    public mapData(long Seed){rand=new Random(Seed);}
+    public mapData(long Seed){rand=new Random(Seed);System.out.println("[MapGeneration]Map generation started with seed "+Seed);}
 
     public void setSize(int WidthScale1, int HeightScale1){
         this.HeightScale1=HeightScale1;
         this.WidthScale1=WidthScale1;
         MapScale1=new char[WidthScale1][WidthScale1];
+        System.out.println("[MapGeneration]Map size set "+WidthScale1+"x"+HeightScale1);
     }
 
     public void generateSkeleton(){
+        System.out.println("[MapGeneration]Map skeleton generation started");
         for(int j=0;j<HeightScale1;++j){for(int i=0;i<WidthScale1;++i){set(i,j,'W');}}
         int numOfRooms=rand.nextInt((int)((WidthScale1*HeightScale1)*0.66));//maximum amount of all rooms
         RoomCounter=(int)(numOfRooms*0.43);
@@ -79,6 +81,7 @@ public class mapData {
                 }
             }
         }
+        System.out.println("[MapGeneration]Map skeleton generation ended");
     }
 
     private void solidWall(int x, int y){
@@ -124,7 +127,11 @@ public class mapData {
                 MapScale5[X][Y]='f';
             }
         }
+
         MapScale5[x*4+2][y*4+2]='X';
+        EnterY=y*4+2;
+        EnterX=x*4+2;
+
         if(x!=0)
             if(MapScale1[x-1][y]=='O'){
                 MapScale5[x*4][y*4+2]='f';MapScale5[x*4+1][y*4+2]='f';}
@@ -140,6 +147,7 @@ public class mapData {
     }
 
     public void generateFullSize(){
+        System.out.println("[MapGeneration]Full size map generation started");
         WidthScale5=1+(WidthScale1*4);
         HeightScale5=1+(HeightScale1*4);
         MapScale5=new char[WidthScale5][HeightScale5];
@@ -161,6 +169,7 @@ public class mapData {
                 }
             }
         }
+        System.out.println("[MapGeneration]Full size map generation ended");
     }
 
     public String[] get(){
@@ -181,6 +190,7 @@ public class mapData {
     private void setEnterPoint(){
         EnterX=rand.nextInt((int)(WidthScale1*0.30))+(int)(WidthScale1*0.35);
         EnterY=rand.nextInt((int)(HeightScale1*0.30))+(int)(HeightScale1*0.35);
+        System.out.println("[MapGeneration]Enter on map set at X:"+EnterX+" Y:"+EnterY);
         set(EnterX,EnterY,'X');
     }
 }

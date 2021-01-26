@@ -8,7 +8,7 @@ import java.util.HashMap;
 public class ResourcesManager {
     private static HashMap<String, BufferedImage> textures;
 
-    public ResourcesManager(){
+    public static void loadRes(){
         textures=new HashMap<String, BufferedImage>();
         File folder = new File("Resources/Textures");
         for(File file:folder.listFiles()){

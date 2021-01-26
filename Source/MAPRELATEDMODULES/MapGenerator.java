@@ -1,34 +1,26 @@
 package MAPRELATEDMODULES;
 
-import MAPRELATEDMODULES.mapData;
-
 public class MapGenerator {
-    private mapData data;
-    public int SizeW;
-    public int SizeH;
-    public int X;
-    public int Y;
+    private static mapData data;
+    private static int Y;
+    private static int X;
 
-    public MapGenerator(int SizeW, int SizeH){
-        this.SizeH=SizeH;
-        this.SizeW=SizeW;
-        data = new mapData(System.currentTimeMillis());
-    }
-
-    public MapGenerator(int SizeW, int SizeH, long Seed){
-        this.SizeH=SizeH;
-        this.SizeW=SizeW;
+    public static void initialise(int Width, int Height, long Seed){
         data = new mapData(Seed);
-    }
-
-    public String[] Generate(){
-        data.setSize(SizeW,SizeH);
+        data.setSize(Width, Height);
+        X=1+(Width*4);
+        Y=1+(Height*4);
         data.generateSkeleton();
         data.generateFullSize();
-        X= data.X();
-        Y= data.Y();
-        SizeW=1+(SizeW*4);
-        SizeH=1+(SizeH*4);
+    }
+
+    public static String[] getMAP(){
         return data.get();
     }
+
+    public static int getHeight(){return Y;}
+    public static int getWidth(){return X;}
+
+    public static int getEnterX(){return data.X();}
+    public static int getEnterY(){return data.Y();}
 }

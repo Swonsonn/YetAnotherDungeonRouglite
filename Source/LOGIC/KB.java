@@ -1,26 +1,37 @@
 package LOGIC;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.lang.ArrayIndexOutOfBoundsException;
 
 public class KB implements KeyListener{
-    private static boolean[] keys;
+    private static boolean[] keysInput;
+    private static boolean[] keysBlock;
 
-    public KB(){keys=new boolean[190];}
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-        keys[e.getKeyCode()]=true;
+    public KB(){
+        keysInput=new boolean[190];
+        keysBlock=new boolean[190];
     }
 
     @Override
+    public void keyTyped(KeyEvent e) {}
+
+    @Override
     public void keyPressed(KeyEvent e) {
-        keys[e.getKeyCode()]=false;
+        try{keysInput[e.getKeyCode()]=true;}catch(ArrayIndexOutOfBoundsException E){}
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        keys[e.getKeyCode()]=false;
+        try{keysInput[e.getKeyCode()]=false;}catch(ArrayIndexOutOfBoundsException E){}
     }
 
-    public static boolean get(int key){return keys[key];}
+    public static boolean get(int key){
+        if(keysInput[key]==true && keysBlock[key]==false){
+            keysBlock[key]=true;
+            return true;
+        }
+        if(keysInput[key]==false)
+            keysBlock[key]=false;
+        return false;
+    }
 }

@@ -8,12 +8,12 @@ public class Loops implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent arg0) {
         if(KB.get(KeyEvent.VK_W))
-            GameLogic.move(-1,0);
-        if(KB.get(KeyEvent.VK_S))
-            GameLogic.move(1,0);
-        if(KB.get(KeyEvent.VK_D))
-            GameLogic.move(0,1);
-        if(KB.get(KeyEvent.VK_A))
             GameLogic.move(0,-1);
+        if(KB.get(KeyEvent.VK_S))
+            GameLogic.move(0,1);
+        if(KB.get(KeyEvent.VK_D))
+            GameLogic.move(1,0);
+        if(KB.get(KeyEvent.VK_A))
+            GameLogic.move(-1,0);
     }
 }
