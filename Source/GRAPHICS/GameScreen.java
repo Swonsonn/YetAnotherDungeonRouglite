@@ -17,7 +17,7 @@ public class GameScreen extends JPanel{
         GameLogic.initialise();
         MapGenerator.initialise(GameLogic.Width, GameLogic.Height, System.currentTimeMillis());
         GameLogic.addReferenceMap(MapGenerator.getMAP());
-        GameLogic.move(MapGenerator.getEnterX(), MapGenerator.getEnterY());
+        GameLogic.move("player",MapGenerator.getEnterX(), MapGenerator.getEnterY());
         ResourcesManager.loadRes();
         System.out.println("[GameScreen]End initialising");
         System.out.println("######################################\n\n\n");
@@ -27,7 +27,7 @@ public class GameScreen extends JPanel{
     protected void paintComponent(Graphics graphics){
         super.paintComponent(graphics);
         Render.renderGameScreen(graphics,MapGenerator.getHeight(),MapGenerator.getWidth(),MapGenerator.getMAP());
-        Render.renderPlayer(graphics);
+        Render.renderEntity(graphics, "player");
         repaint();
         }
 

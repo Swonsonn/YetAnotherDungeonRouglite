@@ -18,8 +18,8 @@ public class Render {
 
     }
 
-    public static void renderPlayer(Graphics G){
-        entity tempPlayer=GameLogic.player();
-        G.drawImage(ResourcesManager.get("player"), tempPlayer.getX()*Window.RES, tempPlayer.getY()*Window.RES, Window.RES, Window.RES, null);
+    public static void renderEntity(Graphics G, String name){
+        entity tempPlayer=GameLogic.getEntity(name);
+        G.drawImage(ResourcesManager.get(name), tempPlayer.getX()*Window.RES, tempPlayer.getY()*Window.RES, Window.RES, Window.RES, null);
     }
 }
