@@ -1,7 +1,6 @@
 package GRAPHICS;
 
 import javax.swing.*;
-import java.awt.Color;
 import java.awt.Graphics;
 
 import LOGIC.GameLogic;
@@ -11,6 +10,7 @@ import MAPRELATEDMODULES.MapGenerator;
 public class GameScreen extends JPanel{
     public GameScreen(){
         super();
+        System.out.println("######################################");
         System.out.println("[GameScreen]Start initialising");
         this.setFocusable(true);
         this.addKeyListener(new KB());
@@ -20,6 +20,7 @@ public class GameScreen extends JPanel{
         GameLogic.move(MapGenerator.getEnterX(), MapGenerator.getEnterY());
         ResourcesManager.loadRes();
         System.out.println("[GameScreen]End initialising");
+        System.out.println("######################################\n\n\n");
     }
 
     @Override

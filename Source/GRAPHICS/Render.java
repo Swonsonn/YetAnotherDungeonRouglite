@@ -13,7 +13,7 @@ public class Render {
                 switch(map[y].charAt(x)){
                     case 'W':{G.drawImage(ResourcesManager.get("wall"),x*Window.RES,y*Window.RES,Window.RES,Window.RES,null);break;}
                     case 'f':{G.setColor(Color.LIGHT_GRAY);G.fillRect(x*Window.RES,y*Window.RES,Window.RES,Window.RES);break;}
-                    case 'X':{G.setColor(Color.RED);G.fillRect(x*Window.RES,y*Window.RES,Window.RES,Window.RES);break;}
+                    case 'X':{G.setColor(Color.LIGHT_GRAY);G.fillRect(x*Window.RES,y*Window.RES,Window.RES,Window.RES);G.drawImage(ResourcesManager.get("stairs"),x*Window.RES,y*Window.RES,Window.RES,Window.RES,null);break;}
                 }
 
     }

@@ -1,12 +1,11 @@
 package MAPRELATEDMODULES;
 
-import java.util.Arrays;
 import java.util.Random;
 
 public class mapData {
     private char[][] MapScale1;
     private char[][] MapScale5;
-    private int[][] CordsOfRooms;
+    private char[][] RoomMap;
     private String[] MAP;
     private int RoomCounter;
     private int WidthScale1;
@@ -15,7 +14,6 @@ public class mapData {
     private int HeightScale5;
     private int EnterX;
     private int EnterY;
-    private char filler='W';
     private static Random rand;
     private int ri;
 
@@ -25,6 +23,7 @@ public class mapData {
         this.HeightScale1=HeightScale1;
         this.WidthScale1=WidthScale1;
         MapScale1=new char[WidthScale1][WidthScale1];
+        RoomMap=new char[WidthScale1][WidthScale1];
         System.out.println("[MapGeneration]Map size set "+WidthScale1+"x"+HeightScale1);
     }
 
@@ -81,6 +80,10 @@ public class mapData {
                 }
             }
         }
+
+        for(int y=0;y<HeightScale1;++y)
+            for(int x=0;x<WidthScale1;++x)
+                RoomMap[x][y]='w';
         System.out.println("[MapGeneration]Map skeleton generation ended");
     }
 
@@ -104,6 +107,7 @@ public class mapData {
                     MapScale5[X][Y]='f';
                 }
             }
+            RoomMap[x][y]='o';
             ++ri;
         }
         MapScale5[x*4+2][y*4+2]='f';
@@ -146,6 +150,23 @@ public class mapData {
                 MapScale5[x*4+2][y*4+4]='f';MapScale5[x*4+2][y*4+3]='f';}
     }
 
+    private void uniteRooms(){
+        for(int y=0;y<HeightScale1-1;++y){
+            for(int x=0;x<WidthScale1-1;++x){
+                if(RoomMap[x][y]=='o'){
+                    if(RoomMap[x+1][y]=='o'){
+                        MapScale5[x*4+4][y*4+1]='f';
+                        MapScale5[x*4+4][y*4+3]='f';
+                    }
+                    if(RoomMap[x][y+1]=='o'){
+                        MapScale5[x*4+1][y*4+4]='f';
+                        MapScale5[x*4+3][y*4+4]='f';
+                    }
+                }
+            }
+        }
+    }
+
     public void generateFullSize(){
         System.out.println("[MapGeneration]Full size map generation started");
         WidthScale5=1+(WidthScale1*4);
@@ -169,6 +190,7 @@ public class mapData {
                 }
             }
         }
+        uniteRooms();
         System.out.println("[MapGeneration]Full size map generation ended");
     }
 
