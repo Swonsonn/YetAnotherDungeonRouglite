@@ -15,10 +15,10 @@ public class GameLogic {
         Entity.put("player", new entity("player",0,0));
         timer = new Timer(20,new Loops());
         timer.start();
-        System.out.println("[Logic]Initialised");
 
         Height=14;
         Width=14;
+        System.out.println("[Logic]Initialised");
     }
 
     public static void addReferenceMap(String[] map){GameLogic.referenceMap=map;}

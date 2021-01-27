@@ -23,4 +23,6 @@ public class MapGenerator {
 
     public static int getEnterX(){return data.X();}
     public static int getEnterY(){return data.Y();}
+
+    public static int[][] getChests(){return data.getChests();}
 }

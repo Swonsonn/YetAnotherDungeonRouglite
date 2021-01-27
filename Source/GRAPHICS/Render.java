@@ -22,4 +22,10 @@ public class Render {
         entity tempPlayer=GameLogic.getEntity(name);
         G.drawImage(ResourcesManager.get(name), tempPlayer.getX()*Window.RES, tempPlayer.getY()*Window.RES, Window.RES, Window.RES, null);
     }
+
+    public static void renderChests(Graphics G, int[][] chestMap, int limit){
+        for(int i=0;i<limit;++i){
+            G.drawImage(ResourcesManager.get("chest"),chestMap[i][0]*Window.RES,chestMap[i][1]*Window.RES,Window.RES,Window.RES,null);
+        }
+    }
 }

@@ -6,6 +6,7 @@ public class mapData {
     private char[][] MapScale1;
     private char[][] MapScale5;
     private char[][] RoomMap;
+    private int[][] Chests;
     private String[] MAP;
     private int RoomCounter;
     private int WidthScale1;
@@ -167,6 +168,72 @@ public class mapData {
         }
     }
 
+    private void putChests(){
+        Chests=new int[RoomCounter][2];//0-x, 1-y
+        int cur=0;
+        for(int y=1;y<HeightScale1-1;++y){
+            for(int x=1;x<WidthScale1-1;++x){
+                int ran= rand.nextInt(30)+70;
+                if(RoomMap[x][y]=='o' && ran>=81){
+                    boolean placed=false;
+                    while(!placed){
+                        int r= rand.nextInt(5);//1-left, 2-up, 3-right, 4-down, 0-center
+                        switch(r){
+                            case 0:{
+                                Chests[cur][0]=x*4+2;
+                                Chests[cur][1]=y*4+2;
+                                ++cur;
+                                placed=true;
+                                break;
+                            }
+                            case 1:{
+                                if(RoomMap[x-1][y]=='w'){
+                                    int temp= rand.nextInt(3);
+                                    Chests[cur][0]=x*4+1;
+                                    Chests[cur][1]=y*4+1+temp;
+                                    ++cur;
+                                    placed=true;
+                                }
+                                break;
+                            }
+                            case 2:{
+                                if(RoomMap[x][y-1]=='w'){
+                                    int temp= rand.nextInt(3);
+                                    Chests[cur][0]=x*4+1+temp;
+                                    Chests[cur][1]=y*4+1;
+                                    ++cur;
+                                    placed=true;
+                                }
+                                break;
+                            }
+                            case 3:{
+                                if(RoomMap[x+1][y]=='w'){
+                                    int temp= rand.nextInt(3);
+                                    Chests[cur][0]=x*4+3;
+                                    Chests[cur][1]=y*4+1+temp;
+                                    ++cur;
+                                    placed=true;
+                                }
+                                break;
+                            }
+                            case 4:{
+                                if(RoomMap[x][y+1]=='w'){
+                                    int temp= rand.nextInt(3);
+                                    Chests[cur][0]=x*4+1+temp;
+                                    Chests[cur][1]=y*4+3;
+                                    ++cur;
+                                    placed=true;
+                                }
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        Chests[cur][0]=-1;
+    }
+
     public void generateFullSize(){
         System.out.println("[MapGeneration]Full size map generation started");
         WidthScale5=1+(WidthScale1*4);
@@ -191,6 +258,7 @@ public class mapData {
             }
         }
         uniteRooms();
+        putChests();
         System.out.println("[MapGeneration]Full size map generation ended");
     }
 
@@ -202,6 +270,8 @@ public class mapData {
                 MAP[j]+=Character.toString(MapScale5[i][j]);}
         return MAP;
     }
+
+    public int[][] getChests(){return Chests;}
 
     private void set(int x, int y, char symbol){MapScale1[x][y]=symbol;}
 
