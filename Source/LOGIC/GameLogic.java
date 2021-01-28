@@ -19,6 +19,7 @@ public class GameLogic {
     public static void initialise(){
         System.out.println("############################");
         System.out.println("[Logic]Initialising");
+
         Height=14;
         Width=14;
 

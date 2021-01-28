@@ -10,11 +10,13 @@ public class Window {
 
     public static final int WIDTH=1600;//1600
     public static final int HEIGHT=1000;//1000
-    public static final int RES=15;
+    public static final int PLAYERPOSX=440;
+    public static final int PLAYERPOSY=310;
+    public static final int RES=24;
 
     public static void create(){
         window=new JFrame("GAME");
-        window.setBounds(0,0, WIDTH, HEIGHT);
+        window.setBounds(100,10, WIDTH, HEIGHT);
         window.setResizable(false);
         screen=new GameScreen();
         window.add(screen);

@@ -28,21 +28,6 @@ public class mapData {
         System.out.println("[MapGeneration]Map size set "+WidthScale1+"x"+HeightScale1);
     }
 
-    private void darkWalls(){
-        for(int y=0;y<HeightScale1;++y){
-            for(int x=0;x<WidthScale1;++x){
-                int lx=Math.abs(x-1),ly=y,ux=x,uy=Math.abs(y-1),rx=x+1,ry=y,dx=x,dy=y+1;
-                if(rx==WidthScale1)rx=x;
-                if(dy==HeightScale1)dy=y;
-                if(MapScale1[lx][ly]=='W' || MapScale1[lx][ly]=='D')
-                    if(MapScale1[ux][uy]=='W' || MapScale1[ux][uy]=='D')
-                        if(MapScale1[rx][ry]=='W' || MapScale1[rx][ry]=='D')
-                            if(MapScale1[dx][dy]=='W' || MapScale1[dx][dy]=='D')
-                                set(x,y,'D');
-            }
-        }
-    }
-
     public void generateSkeleton(){
         System.out.println("[MapGeneration]Map skeleton generation started");
         for(int j=0;j<HeightScale1;++j){for(int i=0;i<WidthScale1;++i){set(i,j,'W');}}
@@ -96,26 +81,36 @@ public class mapData {
                 }
             }
         }
-        darkWalls();
         for(int y=0;y<HeightScale1;++y)
             for(int x=0;x<WidthScale1;++x)
                 RoomMap[x][y]='w';
         System.out.println("[MapGeneration]Map skeleton generation ended");
     }
 
-    private void solidWall(int x, int y){
-        for(int X=x*4;X<=x*4+4;++X){
-            for(int Y=y*4;Y<=y*4+4;++Y){
-                MapScale5[X][Y]='W';
-            }
-        }
-    }
-
-    private void solidWallDark(int x, int y){
+    private void wall(int x, int y){
         for(int X=x*4;X<=x*4+4;++X){
             for(int Y=y*4;Y<=y*4+4;++Y){
                 MapScale5[X][Y]='D';
             }
+        }
+    }
+
+    private void holeFixer(){
+        for(int y=0;y<HeightScale1-1;++y){
+            for(int x=0;x<WidthScale1-1;++x){
+                if((MapScale1[x][y] == 'O' || MapScale1[x][y]=='X') && MapScale1[x+1][y]=='W'){
+                    for(int i=0;i<=4;++i)
+                        MapScale5[x*4+4][y*4+i]='W';
+                }
+                if((MapScale1[x][y] == 'O' || MapScale1[x][y]=='X') && MapScale1[x][y+1]=='W'){
+                    for(int i=0;i<=4;++i)
+                        MapScale5[x*4+i][y*4+4]='W';
+                }
+            }
+        }
+        if(MapScale1[EnterX-1][EnterY]=='W'){
+            for(int i=0;i<=4;++i)
+                MapScale5[EnterX*4][EnterY*4+i]='W';
         }
     }
 
@@ -155,11 +150,7 @@ public class mapData {
                 MapScale5[X][Y]='f';
             }
         }
-
         MapScale5[x*4+2][y*4+2]='X';
-        EnterY=y*4+2;
-        EnterX=x*4+2;
-
         if(x!=0)
             if(MapScale1[x-1][y]=='O'){
                 MapScale5[x*4][y*4+2]='f';MapScale5[x*4+1][y*4+2]='f';}
@@ -266,7 +257,7 @@ public class mapData {
             for(int x=0;x<WidthScale1;++x){
                 switch(MapScale1[x][y]){
                     case 'W':{
-                        solidWall(x,y);
+                        wall(x,y);
                         break;
                     }
                     case 'O':{
@@ -277,14 +268,13 @@ public class mapData {
                         enterRoom(x,y);
                         break;
                     }
-                    case 'D':{
-                        solidWallDark(x,y);
-                        break;
-                    }
                 }
             }
         }
         uniteRooms();
+        holeFixer();
+        EnterY=EnterY*4+2;
+        EnterX=EnterX*4+2;
         putChests();
         System.out.println("[MapGeneration]Full size map generation ended");
     }

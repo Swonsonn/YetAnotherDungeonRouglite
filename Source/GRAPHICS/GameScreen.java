@@ -20,6 +20,7 @@ public class GameScreen extends JPanel{
     @Override
     protected void paintComponent(Graphics graphics){
         super.paintComponent(graphics);
+        Render.readPlayer();
         Render.renderGameScreen(graphics,MapGenerator.getHeight(),MapGenerator.getWidth(),MapGenerator.getMAP());
         Render.renderChests(graphics, GameLogic.getCHEST(), GameLogic.getUPPERLIMIT());
         Render.renderEntity(graphics, "player");
