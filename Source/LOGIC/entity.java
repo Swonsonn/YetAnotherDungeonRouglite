@@ -13,7 +13,7 @@ public class entity {
     }
 
     public void setPos(int x, int y){
-        if(GameLogic.referenceMap[Y+y].charAt(X+x)!='W'){
+        if(GameLogic.getMAP()[Y+y].charAt(X+x)!='W'){
             X = X + x;
             Y = Y + y;
             System.out.println("[Entity]"+name+" moved to X:"+X+" Y:"+Y);
