@@ -1,5 +1,6 @@
 package LOGIC;
 
+import GRAPHICS.FontManager;
 import GRAPHICS.ResourcesManager;
 import GRAPHICS.Window;
 import MAPRELATEDMODULES.MapGenerator;
@@ -33,6 +34,7 @@ public class GameLogic {
         System.out.println("[Logic]Map generated");
         System.out.println("[Logic]Loading resources");
         ResourcesManager.loadRes();
+        FontManager.loadRes();
         System.out.println("[Logic]Resources loaded");
         Entity.put("player", new entity("player",MapGenerator.getEnterX(), MapGenerator.getEnterY()));
         referenceMap=MapGenerator.getMAP();

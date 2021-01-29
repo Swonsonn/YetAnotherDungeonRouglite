@@ -48,7 +48,7 @@ public class Render {
     }
 
     public static void renderStatsText(Graphics G){
-        G.setFont(new Font("TimesRoman", Font.PLAIN,24));
+        G.setFont(FontManager.get("origami"));
         G.setColor(Color.WHITE);
         G.drawString("Suptelch is gay", Window.PLAYERPOSX*2 +10, 40);
     }
