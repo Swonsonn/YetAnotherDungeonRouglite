@@ -1,6 +1,7 @@
 package LOGIC;
 
 import GRAPHICS.ResourcesManager;
+import GRAPHICS.Window;
 import MAPRELATEDMODULES.MapGenerator;
 
 import javax.swing.Timer;
@@ -22,6 +23,8 @@ public class GameLogic {
 
         Height=14;
         Width=14;
+        Window.PLAYERPOSY=Window.HEIGHT/2;
+        Window.PLAYERPOSX=(int)(Window.WIDTH*0.375);
 
         UpperChestLimit=0;
         Entity=new HashMap<String, entity>();

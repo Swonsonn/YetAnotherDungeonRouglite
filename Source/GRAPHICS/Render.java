@@ -2,7 +2,8 @@ package GRAPHICS;
 
 import LOGIC.GameLogic;
 import LOGIC.entity;
-import java.awt.Graphics;
+
+import java.awt.*;
 
 public class Render {
     private static int playerX, playerY;
@@ -40,6 +41,28 @@ public class Render {
     public static void renderEntity(Graphics G, String name){
         entity e=GameLogic.getEntity(name);
         G.drawImage(ResourcesManager.get(name), getX(e.getX()),getY(e.getY()), Window.RES, Window.RES, null);
+    }
+
+    public static void renderBackgroundStats(Graphics G){
+        G.drawImage(ResourcesManager.get("filler"), Window.PLAYERPOSX*2, 0, Window.WIDTH-(Window.PLAYERPOSX*2), Window.HEIGHT, null);
+    }
+
+    public static void renderStatsText(Graphics G){
+        G.setFont(new Font("TimesRoman", Font.PLAIN,24));
+        G.setColor(Color.WHITE);
+        G.drawString("Suptelch is gay", Window.PLAYERPOSX*2 +10, 40);
+    }
+
+    public static void renderBackground(Graphics G){
+        int x=0,y=0;
+        while(y<Window.HEIGHT){
+            x=0;
+            while(x<Window.WIDTH){
+                G.drawImage(ResourcesManager.get("walldark"), x , y,Window.RES,Window.RES,null);
+                x+=Window.RES;
+            }
+            y+=Window.RES;
+        }
     }
 
     public static void renderChests(Graphics G, int[][] chestMap, int limit){

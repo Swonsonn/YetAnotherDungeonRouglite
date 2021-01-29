@@ -21,8 +21,5 @@ public class entity {
     }
 
     public int getX(){return X;}
-
     public int getY(){return Y;}
-
-    public String getName(){return name;}
 }

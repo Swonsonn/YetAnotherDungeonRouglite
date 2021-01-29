@@ -21,9 +21,12 @@ public class GameScreen extends JPanel{
     protected void paintComponent(Graphics graphics){
         super.paintComponent(graphics);
         Render.readPlayer();
+        Render.renderBackground(graphics);
         Render.renderGameScreen(graphics,MapGenerator.getHeight(),MapGenerator.getWidth(),MapGenerator.getMAP());
         Render.renderChests(graphics, GameLogic.getCHEST(), GameLogic.getUPPERLIMIT());
         Render.renderEntity(graphics, "player");
+        Render.renderBackgroundStats(graphics);
+        Render.renderStatsText(graphics);
         repaint();
         }
 
