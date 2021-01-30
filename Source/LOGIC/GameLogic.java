@@ -14,9 +14,44 @@ public class GameLogic {
     private static String[] referenceMap;
     private static int[][] Chests;
     private static int UpperChestLimit;
+    public static boolean ChestIsNearBy;
+
+    public static int numOfChest;
 
     private static int Height;
     private static int Width;
+
+    public static void checkChests(){
+        ChestIsNearBy=false;
+        numOfChest=-1;
+        entity player=getEntity("player");
+        for(int i=0;i<UpperChestLimit;++i){
+            if(player.getX()==Chests[i][0] && player.getY()==Chests[i][1]){
+                ChestIsNearBy = true;
+                numOfChest=i;
+            }
+            if(player.getX()-1==Chests[i][0] && player.getY()==Chests[i][1]){
+                ChestIsNearBy = true;
+                numOfChest=i;
+            }
+            if(player.getX()+1==Chests[i][0] && player.getY()==Chests[i][1]){
+                ChestIsNearBy = true;
+                numOfChest=i;
+            }
+            if(player.getX()==Chests[i][0] && player.getY()-1==Chests[i][1]){
+                ChestIsNearBy = true;
+                numOfChest=i;
+            }
+            if(player.getX()==Chests[i][0] && player.getY()+1==Chests[i][1]){
+                ChestIsNearBy = true;
+                numOfChest=i;
+            }
+        }
+    }
+
+    public static void openChest(){
+        Chests[numOfChest][2]=0;
+    }
 
     public static void initialise(){
         System.out.println("############################");

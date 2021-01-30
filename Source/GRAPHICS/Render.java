@@ -84,7 +84,14 @@ public class Render {
 
     public static void renderChests(Graphics G, int[][] chestMap, int limit){
         for(int i=0;i<limit;++i){
-            G.drawImage(ResourcesManager.get("chest"),getX(chestMap[i][0]),getY(chestMap[i][1]),Window.RES,Window.RES,null);
+            if(chestMap[i][2]==1){G.drawImage(ResourcesManager.get("chest"),getX(chestMap[i][0]),getY(chestMap[i][1]),Window.RES,Window.RES,null);}
+            else{G.drawImage(ResourcesManager.get("floor"),getX(chestMap[i][0]),getY(chestMap[i][1]),Window.RES,Window.RES,null);}//closed chest
         }
+    }
+
+    public static void chestOpenMessage(Graphics G){
+        G.setColor(Color.WHITE);
+        G.setFont(FontManager.get("aldrich"));
+        G.drawString("Press E to open the chest", Window.PLAYERPOSX-4*Window.RES, Window.PLAYERPOSY+2*Window.RES);
     }
 }

@@ -185,7 +185,7 @@ public class mapData {
     }
 
     private void putChests(){
-        Chests=new int[RoomCounter][2];//0-x, 1-y
+        Chests=new int[RoomCounter][3];//0-x, 1-y, 2-open/closed
         int cur=0;
         for(int y=1;y<HeightScale1-1;++y){
             for(int x=1;x<WidthScale1-1;++x){
@@ -198,6 +198,7 @@ public class mapData {
                             case 0:{
                                 Chests[cur][0]=x*4+2;
                                 Chests[cur][1]=y*4+2;
+                                Chests[cur][2]=1;
                                 ++cur;
                                 placed=true;
                                 break;
@@ -207,6 +208,7 @@ public class mapData {
                                     int temp= rand.nextInt(3);
                                     Chests[cur][0]=x*4+1;
                                     Chests[cur][1]=y*4+1+temp;
+                                    Chests[cur][2]=1;
                                     ++cur;
                                     placed=true;
                                 }
@@ -217,6 +219,7 @@ public class mapData {
                                     int temp= rand.nextInt(3);
                                     Chests[cur][0]=x*4+1+temp;
                                     Chests[cur][1]=y*4+1;
+                                    Chests[cur][2]=1;
                                     ++cur;
                                     placed=true;
                                 }
@@ -227,6 +230,7 @@ public class mapData {
                                     int temp= rand.nextInt(3);
                                     Chests[cur][0]=x*4+3;
                                     Chests[cur][1]=y*4+1+temp;
+                                    Chests[cur][2]=1;
                                     ++cur;
                                     placed=true;
                                 }
@@ -237,6 +241,7 @@ public class mapData {
                                     int temp= rand.nextInt(3);
                                     Chests[cur][0]=x*4+1+temp;
                                     Chests[cur][1]=y*4+3;
+                                    Chests[cur][2]=1;
                                     ++cur;
                                     placed=true;
                                 }
