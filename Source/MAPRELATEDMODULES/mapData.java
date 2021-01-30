@@ -64,11 +64,13 @@ public class mapData {
             counter=0;
             if(dir!=-1 && sx>=0 && sx<WidthScale1 && sy>=0 && sy<HeightScale1){
                 while(rand.nextInt(100)>35*(counter-3)){
-                    set(sx,sy,'O');
-                    usedCords[CurrentNumOfRooms][0]=sx;
-                    usedCords[CurrentNumOfRooms][1]=sy;
-                    ++CurrentNumOfRooms;
-                    ++counter;
+                    if(MapScale1[sx][sy]!='O' && MapScale1[sx][sy]!='X'){
+                        set(sx,sy,'O');
+                        usedCords[CurrentNumOfRooms][0]=sx;
+                        usedCords[CurrentNumOfRooms][1]=sy;
+                        ++CurrentNumOfRooms;
+                        ++counter;
+                    }
                     switch(dir){
                         case 1:{--sy;ty=sy-1;tx=sx;break;}
                         case 2:{++sy;ty=sy+1;tx=sx;break;}
@@ -191,7 +193,7 @@ public class mapData {
                 if(RoomMap[x][y]=='o' && ran>=90){
                     boolean placed=false;
                     while(!placed){
-                        int r= rand.nextInt(5);//1-left, 2-up, 3-right, 4-down, 0-center
+                        int r=rand.nextInt(5);//1-left, 2-up, 3-right, 4-down, 0-center
                         switch(r){
                             case 0:{
                                 Chests[cur][0]=x*4+2;

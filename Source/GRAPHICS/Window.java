@@ -1,12 +1,15 @@
 package GRAPHICS;
 
+import LOGIC.KB;
+
 import javax.swing.JFrame;
+import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class Window {
     private static JFrame window;
-    private static GameScreen screen;
+    private static GameScreen gameScreen;
 
     public static final int WIDTH=1600;//1600
     public static final int HEIGHT=1000;//1000
@@ -18,8 +21,12 @@ public class Window {
         window=new JFrame("GAME");
         window.setBounds(100,10, WIDTH, HEIGHT);
         window.setResizable(false);
-        screen=new GameScreen();
-        window.add(screen);
+        window.setLayout(new BorderLayout());
+        gameScreen=new GameScreen();
+        gameScreen.addKeyListener(new KB());
+        gameScreen.setLayout(null);
+        gameScreen.setBounds(0,0,WIDTH, HEIGHT);
+        window.add(gameScreen);
         window.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
