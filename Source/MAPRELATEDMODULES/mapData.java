@@ -188,7 +188,7 @@ public class mapData {
         for(int y=1;y<HeightScale1-1;++y){
             for(int x=1;x<WidthScale1-1;++x){
                 int ran= rand.nextInt(30)+70;
-                if(RoomMap[x][y]=='o' && ran>=81){
+                if(RoomMap[x][y]=='o' && ran>=90){
                     boolean placed=false;
                     while(!placed){
                         int r= rand.nextInt(5);//1-left, 2-up, 3-right, 4-down, 0-center

@@ -25,7 +25,7 @@ public class GameLogic {
         Height=14;
         Width=14;
         Window.PLAYERPOSY=Window.HEIGHT/2;
-        Window.PLAYERPOSX=(int)(Window.WIDTH*0.375);
+        Window.PLAYERPOSX=(int)(Window.WIDTH*0.43);
 
         UpperChestLimit=0;
         Entity=new HashMap<String, entity>();

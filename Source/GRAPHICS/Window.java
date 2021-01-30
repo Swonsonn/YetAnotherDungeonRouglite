@@ -12,7 +12,7 @@ public class Window {
     public static final int HEIGHT=1000;//1000
     public static int PLAYERPOSX=0;
     public static int PLAYERPOSY=0;
-    public static final int RES=24;
+    public static final int RES=32;
 
     public static void create(){
         window=new JFrame("GAME");

@@ -1,5 +1,6 @@
 package GRAPHICS;
 
+import INFORMATION.PlayerInformation;
 import LOGIC.GameLogic;
 import LOGIC.entity;
 
@@ -48,9 +49,25 @@ public class Render {
     }
 
     public static void renderStatsText(Graphics G){
+        int POSx=Window.PLAYERPOSX*2+10,POSy=20;
         G.setFont(FontManager.get("origami"));
-        G.setColor(Color.WHITE);
-        G.drawString("Suptelch is gay", Window.PLAYERPOSX*2 +10, 40);
+        G.drawImage(ResourcesManager.get("wall"), POSx, POSy, 190,190,null);
+        POSy+=220;
+        G.setColor(Color.GREEN);
+        G.drawString("HP  :  "+PlayerInformation.HPcur+"/"+PlayerInformation.HPmax, POSx, POSy);
+        POSy+=20;
+        G.setColor(Color.BLUE);
+        G.drawString("MAN:  "+PlayerInformation.MANcur+"/"+PlayerInformation.MANmax, POSx, POSy);
+        POSy+=20;
+        G.setColor(Color.CYAN);
+        G.drawString("DEF:  "+PlayerInformation.DEFfull, POSx, POSy);
+        POSy+=20;
+        G.setColor(Color.RED);
+        G.drawString("DMG:  "+PlayerInformation.DMGfull, POSx, POSy);
+        POSy+=20;
+        G.setColor(Color.YELLOW);
+        G.drawString("AGL:  ", POSx, POSy);
+        POSy+=20;
     }
 
     public static void renderBackground(Graphics G){
