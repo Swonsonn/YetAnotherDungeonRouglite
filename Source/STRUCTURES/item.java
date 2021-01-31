@@ -7,6 +7,7 @@ public class item {
     private float stat1;
     private float stat2;
     private float stat3;
+    private int numOfPart;
 
     public item(String name, String description, int type, float stat1, float stat2, float stat3){
         this.name=name;
@@ -15,7 +16,10 @@ public class item {
         this.stat1=stat1;
         this.stat2=stat2;
         this.stat3=stat3;
+
+        numOfPart=1;
     }
 
     public String getName(){return name;}
+    public int getParts(){return numOfPart;}
 }

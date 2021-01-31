@@ -92,6 +92,23 @@ public class Render {
         }
     }
 
+    public static void renderINVchest(Graphics G){
+        if(GameLogic.ChestIsNearBy){
+            Chest chest=GameLogic.getSpecificChest(GameLogic.numOfChest);
+            for(int y=0;y<4;++y) {
+                for (int x = 0; x<8; ++x) {
+                    if ((x + y) % 2 == 0) {
+                        G.setColor(Color.GRAY);
+                    } else {
+                        G.setColor(Color.DARK_GRAY);
+                    }
+                    G.fillRect(100+x * Window.invRES, 100+y * Window.invRES, Window.invRES, Window.invRES);
+                    G.drawImage(ResourcesManager.get(chest.inv.show(x,y)), 100+x * Window.invRES, 100+y * Window.invRES, Window.invRES, Window.invRES, null);
+                }
+            }
+        }
+    }
+
     public static void chestOpenMessage(Graphics G){
         G.setColor(Color.WHITE);
         G.setFont(FontManager.get("aldrich"));

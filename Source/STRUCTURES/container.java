@@ -38,4 +38,12 @@ public class container {
                 ITEM[xx][yy].set(Iname,yy*5+1+xx);
         return ITEM;
     }
+
+    public boolean look(int x, int y){
+        if(container[x][y].getName()!="empty")
+            return true;
+        return false;
+    }
+
+    public String show(int x, int y){return container[x][y].getName();}
 }

@@ -9,7 +9,7 @@ import MAPRELATEDMODULES.MapGenerator;
 
 public class GameScreen extends JPanel{
     private JToggleButton INV;
-    private JPanel InventoryPanel;
+    private InventoryAndChests InventoryPanel;
     public static boolean INVActive;
 
     public GameScreen() throws FileNotFoundException {
@@ -24,11 +24,7 @@ public class GameScreen extends JPanel{
         INV.setIcon(ico);
         INV.setFocusable(false);
 
-        InventoryPanel=new JPanel();
-        InventoryPanel.setBounds(100,100, Window.PLAYERPOSX*2-100, Window.PLAYERPOSY*2-200);
-        InventoryPanel.setFocusable(false);
-        InventoryPanel.setVisible(false);
-        InventoryPanel.setBackground(Color.GRAY);
+        InventoryPanel=new InventoryAndChests();
 
         this.add(INV);
         this.add(InventoryPanel);
@@ -37,14 +33,6 @@ public class GameScreen extends JPanel{
     @Override
     protected void paintComponent(Graphics graphics){
         super.paintComponent(graphics);
-        if(INV.isSelected()){
-            INVActive=true;
-            InventoryPanel.setVisible(true);
-            InventoryPanel.repaint();
-        } else{
-            INVActive=false;
-            InventoryPanel.setVisible(false);
-        }
         Render.readPlayer();
         Render.renderBackground(graphics);
         Render.renderGameScreen(graphics, MapGenerator.getHeight(), MapGenerator.getWidth(), MapGenerator.getMAP());
@@ -55,6 +43,14 @@ public class GameScreen extends JPanel{
             Render.chestOpenMessage(graphics);
         //Render.renderBackgroundStats(graphics);
         Render.renderStatsText(graphics);
+        if(INV.isSelected()){
+            INVActive=true;
+            InventoryPanel.setVisible(true);
+            InventoryPanel.repaint();
+        } else{
+            INVActive=false;
+            InventoryPanel.setVisible(false);
+        }
         repaint();
         }
 

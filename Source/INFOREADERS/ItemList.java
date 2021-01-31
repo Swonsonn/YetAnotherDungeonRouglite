@@ -8,6 +8,8 @@ import java.util.Scanner;
 
 public class ItemList {
     private static HashMap<Integer, item> list;
+    public static int NUMOFITEMS;
+
     public static void loadRes() throws FileNotFoundException {
         list=new HashMap<Integer, item>();
         File folder = new File("Resources/Items");
@@ -28,6 +30,7 @@ public class ItemList {
             System.out.println("[Items]"+file.getName()+" loaded");
             ++ID;
         }
+        NUMOFITEMS=ID-1;
     }
 
     public static item get(int ID){return list.get(ID);}

@@ -8,18 +8,20 @@ import INPUTREADERS.Loops;
 import MAPRELATEDMODULES.MapGenerator;
 import STRUCTURES.Chest;
 import STRUCTURES.entity;
+import STRUCTURES.item;
 
 import javax.swing.Timer;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
+import java.util.Random;
 
 public class GameLogic {
     private static HashMap<String, entity> Entity;
     private static Timer timer;
     private static String[] referenceMap;
     private static Chest[] Chests;
-    public static boolean ChestIsNearBy;
 
+    public static boolean ChestIsNearBy;
     public static int numOfChest;
 
     private static int Height;
@@ -79,6 +81,7 @@ public class GameLogic {
         referenceMap=MapGenerator.getMAP();
 
         Chests=MapGenerator.getChests();//refactor this with new class
+        fillChests();
 
         System.out.println("[Logic]"+Chests.length+" chests placed");
         timer = new Timer(20,new Loops());
@@ -87,9 +90,20 @@ public class GameLogic {
         System.out.println("############################\n");
     }
 
+    private static void fillChests(){
+        Random rand=new Random();
+        for(int I=0;I<Chests.length;++I){
+            int r= rand.nextInt(ItemList.NUMOFITEMS)+1;
+            item temp=ItemList.get(r);
+            Chests[I].inv.add("apple", 1,0,0);
+        }
+    }
+
     public static String[] getMAP(){return referenceMap;}
 
     public static Chest[] getCHEST(){return Chests;}
+
+    public static Chest getSpecificChest(int num){return Chests[num];}
 
     public static int getUPPERLIMIT(){return Chests.length;}
 
