@@ -1,19 +1,23 @@
 package LOGIC;
 
-import GRAPHICS.FontManager;
-import GRAPHICS.ResourcesManager;
+import InfoReaders.FontManager;
+import InfoReaders.ItemList;
+import InfoReaders.ResourcesManager;
 import GRAPHICS.Window;
+import InputReaders.Loops;
 import MAPRELATEDMODULES.MapGenerator;
+import Structures.Chest;
+import Structures.entity;
 
 import javax.swing.Timer;
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 
 public class GameLogic {
     private static HashMap<String, entity> Entity;
     private static Timer timer;
     private static String[] referenceMap;
-    private static int[][] Chests;
-    private static int UpperChestLimit;
+    private static Chest[] Chests;
     public static boolean ChestIsNearBy;
 
     public static int numOfChest;
@@ -25,24 +29,24 @@ public class GameLogic {
         ChestIsNearBy=false;
         numOfChest=-1;
         entity player=getEntity("player");
-        for(int i=0;i<UpperChestLimit;++i){
-            if(player.getX()==Chests[i][0] && player.getY()==Chests[i][1]){
+        for(int i=0;i<Chests.length;++i){
+            if(player.getX()==Chests[i].X && player.getY()==Chests[i].Y){
                 ChestIsNearBy = true;
                 numOfChest=i;
             }
-            if(player.getX()-1==Chests[i][0] && player.getY()==Chests[i][1]){
+            if(player.getX()-1==Chests[i].X && player.getY()==Chests[i].Y){
                 ChestIsNearBy = true;
                 numOfChest=i;
             }
-            if(player.getX()+1==Chests[i][0] && player.getY()==Chests[i][1]){
+            if(player.getX()+1==Chests[i].X && player.getY()==Chests[i].Y){
                 ChestIsNearBy = true;
                 numOfChest=i;
             }
-            if(player.getX()==Chests[i][0] && player.getY()-1==Chests[i][1]){
+            if(player.getX()==Chests[i].X && player.getY()-1==Chests[i].Y){
                 ChestIsNearBy = true;
                 numOfChest=i;
             }
-            if(player.getX()==Chests[i][0] && player.getY()+1==Chests[i][1]){
+            if(player.getX()==Chests[i].X && player.getY()+1==Chests[i].Y){
                 ChestIsNearBy = true;
                 numOfChest=i;
             }
@@ -50,19 +54,18 @@ public class GameLogic {
     }
 
     public static void openChest(){
-        Chests[numOfChest][2]=0;
+        Chests[numOfChest].IsOpen=true;
     }
 
-    public static void initialise(){
+    public static void initialise(int H, int W) throws FileNotFoundException {
         System.out.println("############################");
         System.out.println("[Logic]Initialising");
 
-        Height=14;
-        Width=14;
+        Height=H;
+        Width=W;
         Window.PLAYERPOSY=Window.HEIGHT/2;
         Window.PLAYERPOSX=(int)(Window.WIDTH*0.43);
 
-        UpperChestLimit=0;
         Entity=new HashMap<String, entity>();
         System.out.println("[Logic]Generating map");
         MapGenerator.initialise(GameLogic.Width, GameLogic.Height, System.currentTimeMillis());
@@ -70,11 +73,14 @@ public class GameLogic {
         System.out.println("[Logic]Loading resources");
         ResourcesManager.loadRes();
         FontManager.loadRes();
+        ItemList.loadRes();
         System.out.println("[Logic]Resources loaded");
         Entity.put("player", new entity("player",MapGenerator.getEnterX(), MapGenerator.getEnterY()));
         referenceMap=MapGenerator.getMAP();
-        Chests=MapGenerator.getChests();
-        while(Chests[UpperChestLimit][0]!=-1){UpperChestLimit++;}
+
+        Chests=MapGenerator.getChests();//refactor this with new class
+
+        System.out.println("[Logic]"+Chests.length+" chests placed");
         timer = new Timer(20,new Loops());
         timer.start();
         System.out.println("[Logic]Initialised");
@@ -83,9 +89,9 @@ public class GameLogic {
 
     public static String[] getMAP(){return referenceMap;}
 
-    public static int[][] getCHEST(){return Chests;}
+    public static Chest[] getCHEST(){return Chests;}
 
-    public static int getUPPERLIMIT(){return UpperChestLimit;}
+    public static int getUPPERLIMIT(){return Chests.length;}
 
     public static void move(String name, int dx, int dy){
         Entity.get(name).setPos(dx,dy);

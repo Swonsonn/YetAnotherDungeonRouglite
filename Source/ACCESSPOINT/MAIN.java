@@ -1,12 +1,10 @@
 package ACCESSPOINT;
 
-import GRAPHICS.GameScreen;
-import MAPRELATEDMODULES.MapGenerator;
-import MAPRELATEDMODULES.mapData;
 import GRAPHICS.Window;
+import java.io.FileNotFoundException;
 
 public class MAIN {
-    public static void main(String[] args){
+    public static void main(String[] args) throws FileNotFoundException {
         Window.create();
         Window.setVisible();
     }

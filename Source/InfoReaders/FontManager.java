@@ -1,5 +1,4 @@
-package GRAPHICS;
-import javax.imageio.ImageIO;
+package InfoReaders;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;

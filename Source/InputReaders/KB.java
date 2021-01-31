@@ -1,4 +1,4 @@
-package LOGIC;
+package InputReaders;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.lang.ArrayIndexOutOfBoundsException;

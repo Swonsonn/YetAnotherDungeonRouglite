@@ -1,8 +1,11 @@
 package GRAPHICS;
 
 import INFORMATION.PlayerInformation;
+import InfoReaders.FontManager;
+import InfoReaders.ResourcesManager;
 import LOGIC.GameLogic;
-import LOGIC.entity;
+import Structures.Chest;
+import Structures.entity;
 
 import java.awt.*;
 
@@ -22,7 +25,7 @@ public class Render {
                     case 'W':{G.drawImage(ResourcesManager.get("wall"), getX(x),getY(y),Window.RES,Window.RES,null);break;}
                     case 'f':{G.drawImage(ResourcesManager.get("floor"),getX(x),getY(y),Window.RES,Window.RES,null);break;}
                     case 'X':{G.drawImage(ResourcesManager.get("floor"),getX(x),getY(y),Window.RES,Window.RES,null);G.drawImage(ResourcesManager.get("stairs"),getX(x),getY(y),Window.RES,Window.RES,null);break;}
-                    case 'D':{G.drawImage(ResourcesManager.get("walldark"),getX(x),getY(y),Window.RES,Window.RES,null);break;}
+                    case 'D':{G.drawImage(ResourcesManager.get("darkwall"),getX(x),getY(y),Window.RES,Window.RES,null);break;}
                 }
 
     }
@@ -82,10 +85,10 @@ public class Render {
         }
     }
 
-    public static void renderChests(Graphics G, int[][] chestMap, int limit){
+    public static void renderChests(Graphics G, Chest[] chestMap, int limit){
         for(int i=0;i<limit;++i){
-            if(chestMap[i][2]==1){G.drawImage(ResourcesManager.get("chest"),getX(chestMap[i][0]),getY(chestMap[i][1]),Window.RES,Window.RES,null);}
-            else{G.drawImage(ResourcesManager.get("floor"),getX(chestMap[i][0]),getY(chestMap[i][1]),Window.RES,Window.RES,null);}//closed chest
+            if(chestMap[i].IsOpen==false){G.drawImage(ResourcesManager.get("chest"),getX(chestMap[i].X),getY(chestMap[i].Y),Window.RES,Window.RES,null);}
+            else{G.drawImage(ResourcesManager.get("openchest"),getX(chestMap[i].X),getY(chestMap[i].Y),Window.RES,Window.RES,null);}//closed chest
         }
     }
 

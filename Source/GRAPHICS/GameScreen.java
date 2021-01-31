@@ -2,6 +2,8 @@ package GRAPHICS;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.FileNotFoundException;
+
 import LOGIC.GameLogic;
 import MAPRELATEDMODULES.MapGenerator;
 
@@ -10,10 +12,10 @@ public class GameScreen extends JPanel{
     private JPanel InventoryPanel;
     public static boolean INVActive;
 
-    public GameScreen(){
+    public GameScreen() throws FileNotFoundException {
         super();
         this.setFocusable(true);
-        GameLogic.initialise();
+        GameLogic.initialise(22,22);
         this.setLayout(null);
 
         ImageIcon ico = new ImageIcon("Resources/Textures/inv.png");

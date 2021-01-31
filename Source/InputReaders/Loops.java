@@ -1,6 +1,7 @@
-package LOGIC;
+package InputReaders;
 
 import GRAPHICS.GameScreen;
+import LOGIC.GameLogic;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

@@ -1,4 +1,6 @@
-package LOGIC;
+package Structures;
+
+import LOGIC.GameLogic;
 
 public class entity {
     private static String name;

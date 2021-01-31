@@ -1,5 +1,7 @@
 package MAPRELATEDMODULES;
 
+import Structures.Chest;
+
 public class MapGenerator {
     private static mapData data;
     private static int Y;
@@ -24,5 +26,14 @@ public class MapGenerator {
     public static int getEnterX(){return data.X();}
     public static int getEnterY(){return data.Y();}
 
-    public static int[][] getChests(){return data.getChests();}
+    public static Chest[] getChests(){
+        int[][] temp=data.getChests();
+        int UpperChestLimit=0;
+        while(temp[UpperChestLimit][0]!=-1){UpperChestLimit++;}
+        Chest[] chest;
+        chest=new Chest[UpperChestLimit];
+        for(int i=0;i<UpperChestLimit;++i)
+            chest[i]=new Chest(temp[i][0], temp[i][1]);
+        return chest;
+    }
 }
