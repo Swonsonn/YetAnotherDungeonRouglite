@@ -1,4 +1,4 @@
-package Structures;
+package STRUCTURES;
 
 public class item {
     private String name;

@@ -1,6 +1,6 @@
-package InfoReaders;
+package INFOREADERS;
 
-import Structures.item;
+import STRUCTURES.item;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;

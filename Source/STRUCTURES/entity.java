@@ -1,4 +1,4 @@
-package Structures;
+package STRUCTURES;
 
 import LOGIC.GameLogic;
 

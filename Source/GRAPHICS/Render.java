@@ -1,11 +1,11 @@
 package GRAPHICS;
 
 import INFORMATION.PlayerInformation;
-import InfoReaders.FontManager;
-import InfoReaders.ResourcesManager;
+import INFOREADERS.FontManager;
+import INFOREADERS.ResourcesManager;
 import LOGIC.GameLogic;
-import Structures.Chest;
-import Structures.entity;
+import STRUCTURES.Chest;
+import STRUCTURES.entity;
 
 import java.awt.*;
 

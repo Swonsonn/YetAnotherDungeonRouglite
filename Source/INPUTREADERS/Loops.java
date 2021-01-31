@@ -1,4 +1,4 @@
-package InputReaders;
+package INPUTREADERS;
 
 import GRAPHICS.GameScreen;
 import LOGIC.GameLogic;

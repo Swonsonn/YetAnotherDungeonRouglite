@@ -1,4 +1,4 @@
-package Structures;
+package STRUCTURES;
 
 public class containerUnit {
     private String NAME;

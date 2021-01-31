@@ -1,13 +1,13 @@
 package LOGIC;
 
-import InfoReaders.FontManager;
-import InfoReaders.ItemList;
-import InfoReaders.ResourcesManager;
+import INFOREADERS.FontManager;
+import INFOREADERS.ItemList;
+import INFOREADERS.ResourcesManager;
 import GRAPHICS.Window;
-import InputReaders.Loops;
+import INPUTREADERS.Loops;
 import MAPRELATEDMODULES.MapGenerator;
-import Structures.Chest;
-import Structures.entity;
+import STRUCTURES.Chest;
+import STRUCTURES.entity;
 
 import javax.swing.Timer;
 import java.io.FileNotFoundException;

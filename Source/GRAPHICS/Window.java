@@ -1,6 +1,6 @@
 package GRAPHICS;
 
-import InputReaders.KB;
+import INPUTREADERS.KB;
 
 import javax.swing.JFrame;
 import java.awt.*;

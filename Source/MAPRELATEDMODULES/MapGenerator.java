@@ -1,6 +1,6 @@
 package MAPRELATEDMODULES;
 
-import Structures.Chest;
+import STRUCTURES.Chest;
 
 public class MapGenerator {
     private static mapData data;
