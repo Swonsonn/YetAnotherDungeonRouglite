@@ -95,7 +95,8 @@ public class GameLogic {
         for(int I=0;I<Chests.length;++I){
             int r= rand.nextInt(ItemList.NUMOFITEMS)+1;
             item temp=ItemList.get(r);
-            Chests[I].inv.add("apple", 1,0,0);
+            System.out.println(temp.getName());
+            Chests[I].inv.add(temp,0,0);
         }
     }
 

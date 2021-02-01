@@ -18,7 +18,7 @@ public class entity {
         if(GameLogic.getMAP()[Y+y].charAt(X+x)!='W'){
             X = X + x;
             Y = Y + y;
-            System.out.println("[Entity]"+name+" moved to X:"+X+" Y:"+Y);
+            //System.out.println("[Entity]"+name+" moved to X:"+X+" Y:"+Y);
         }
     }
 

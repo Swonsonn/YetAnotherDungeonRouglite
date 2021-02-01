@@ -6,7 +6,7 @@ public class containerUnit {
 
     public containerUnit(){
         NAME="empty";
-        PART=1;
+        PART=0;
     }
 
     public void set(String NAME, int PART){

@@ -103,9 +103,19 @@ public class Render {
                         G.setColor(Color.DARK_GRAY);
                     }
                     G.fillRect(100+x * Window.invRES, 100+y * Window.invRES, Window.invRES, Window.invRES);
-                    G.drawImage(ResourcesManager.get(chest.inv.show(x,y)), 100+x * Window.invRES, 100+y * Window.invRES, Window.invRES, Window.invRES, null);
+
+                    //G.drawImage(ResourcesManager.get(chest.inv.show(x,y)), 100+x * Window.invRES, 100+y * Window.invRES, Window.invRES, Window.invRES, null);
                 }
             }
+            for(int y=0;y<4;++y) {
+                for (int x = 0; x<8; ++x) {
+                    if(chest.inv.getPart(x,y)==0){
+                        int X,Y;
+                        X=chest.inv.X(x,y);
+                        Y=chest.inv.Y(x,y);
+                        G.drawImage(ResourcesManager.get(chest.inv.take(x,y)), 100+x * Window.invRES, 100+y * Window.invRES, Window.invRES*X, Window.invRES*Y, null);
+                    }
+                }}
         }
     }
 

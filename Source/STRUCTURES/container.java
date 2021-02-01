@@ -20,30 +20,58 @@ public class container {
         initialise();
     }
 
-    public void add(String name, int part, int x, int y){
-        container[x][y].set(name, part);
-    }
-
-    public containerUnit[][] take(int x, int y){//max - 5x5
-        containerUnit[][] ITEM;
-        String Iname=container[x][y].getName();
-        int sx=1,sy=1;
-        for(int i=1;i<5;++i){
-            if(container[x+i][y].getPart()==1+i)++sx;
-            if(container[x][y+i].getPart()==1+i)++sy;
+    public boolean add(item Item, int X, int Y){
+        for(int x=0;x<Item.x();++x){
+            for(int y=0;y<Item.y();++y){
+                if(container[X+x][Y+y].getName()!="empty")
+                    return false;
+            }
         }
-        ITEM=new containerUnit[sx][sy];
-        for(int xx=0;xx<sx;++xx)
-            for(int yy=0;yy<sy;++yy)
-                ITEM[xx][yy].set(Iname,yy*5+1+xx);
-        return ITEM;
+        for(int x=0;x<Item.x();++x){
+            for(int y=0;y<Item.y();++y){
+                container[X+x][Y+y].set(Item.getName(),y*10+x);
+            }
+        }
+        return true;
     }
 
-    public boolean look(int x, int y){
-        if(container[x][y].getName()!="empty")
-            return true;
-        return false;
+    public int X(int x, int y){
+        int X=1;
+        while(x+X<8)
+            if(container[x+X][y].getPart()==X){
+                ++X;}else{break;}
+        return X;
     }
 
-    public String show(int x, int y){return container[x][y].getName();}
+    public int Y(int x, int y){
+        int Y=1;
+        while(y+Y<4)
+            if(container[x][y+Y].getPart()==Y*10){
+                ++Y;}else{break;}
+        return Y;
+    }
+
+    public int getPart(int x, int y){return container[x][y].getPart();}
+
+    public containerUnit[][] pop(int x, int y){//max - 5x5
+        int mx=1,my=0;
+        while(container[x][y+my].getPart()==my*10+mx){
+            while(container[x+mx][y+my].getPart()==my*10+mx)
+                ++mx;
+            ++my;
+        }
+        String tempName=container[x][y].getName();
+        containerUnit[][] temp=new containerUnit[mx][my];
+        for(int X=0;X<mx;++X)
+            for(int Y=0;Y<my;++Y){
+                container[x+X][y+Y].set("empty",1);
+                temp[X][Y]=new containerUnit();
+                temp[X][Y].set(tempName,Y*10+X);
+            }
+        return temp;
+    }
+
+    public String take(int x, int y){//max - 5x5
+        return container[x][y].getName();
+    }
 }
