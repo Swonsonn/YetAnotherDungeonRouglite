@@ -14,19 +14,25 @@ public class ItemList {
         list=new HashMap<Integer, item>();
         File folder = new File("Resources/Items");
         int ID=1;
-        String name, desc;
-        int t, x, y;
+        String name="empty", desc="";
+        int t=0, x=1, y=1;
         float s1=0,s2=0,s3=0;
         for(File file:folder.listFiles()){
             Scanner scanner=new Scanner(file);
-            name=scanner.nextLine();
-            desc= scanner.nextLine();
-            t= scanner.nextInt();
-            x= scanner.nextInt();
-            y= scanner.nextInt();
-            if(scanner.hasNext())s1= scanner.nextFloat();
-            if(scanner.hasNext())s2= scanner.nextFloat();
-            if(scanner.hasNext())s3= scanner.nextFloat();
+            while(scanner.hasNext()){
+                String d="=";
+                String[] msg=scanner.nextLine().split(d);
+                switch(msg[0]){
+                    case "Name":{name=msg[1];break;}
+                    case "Description":{desc=msg[1];break;}
+                    case "Type":{t=Integer.parseInt(msg[1]);break;}
+                    case "SizeX":{x=Integer.parseInt(msg[1]);break;}
+                    case "SizeY":{y=Integer.parseInt(msg[1]);break;}
+                    case "Stat1":{s1=Float.parseFloat(msg[1]);break;}
+                    case "Stat2":{s2=Float.parseFloat(msg[1]);break;}
+                    case "Stat3":{s3=Float.parseFloat(msg[1]);break;}
+                }
+            }
             item i=new item(name,desc,t,x,y,s1,s2,s3);
             list.put(ID,i);
             System.out.println("[Items]"+file.getName()+" loaded");
