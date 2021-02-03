@@ -1,9 +1,14 @@
 package STRUCTURES;
 
+import INFOREADERS.ItemList;
+
 public class container {
     private int height;
     private int width;
     private containerUnit[][] container;
+
+    public int MoveX;
+    public int MoveY;
 
     private void initialise(){
         container=new containerUnit[width][height];
@@ -12,6 +17,8 @@ public class container {
                 container[x][y]=new containerUnit();
             }
         }
+        MoveY=-1;
+        MoveX=-1;
     }
 
     public container(int height, int width){
@@ -20,16 +27,19 @@ public class container {
         initialise();
     }
 
-    public boolean add(item Item, int X, int Y){
-        for(int x=0;x<Item.x();++x){
-            for(int y=0;y<Item.y();++y){
-                if(container[X+x][Y+y].getName()!="empty")
-                    return false;
+    public boolean add(int ID, int X, int Y){
+        item Item=ItemList.get(ID);
+        if(Item.getName()!="empty"){
+            for(int x=0;x<Item.x();++x){
+                for(int y=0;y<Item.y();++y){
+                    if(container[X+x][Y+y].getName()!="empty")
+                        return false;
+                }
             }
-        }
-        for(int x=0;x<Item.x();++x){
-            for(int y=0;y<Item.y();++y){
-                container[X+x][Y+y].set(Item.getName(),y*10+x);
+            for(int x=0;x<Item.x();++x){
+                for(int y=0;y<Item.y();++y){
+                    container[X+x][Y+y].set(Item.getName(),y*10+x);
+                }
             }
         }
         return true;
@@ -53,7 +63,9 @@ public class container {
 
     public int getPart(int x, int y){return container[x][y].getPart();}
 
-    public containerUnit[][] pop(int x, int y){//max - 5x5
+    public int pop(int x, int y){//max - 5x5
+        if(container[x][y].getName()=="empty")
+            return -1;
         int mx=1,my=0;
         while(container[x][y+my].getPart()==my*10+mx){
             while(container[x+mx][y+my].getPart()==my*10+mx)
@@ -68,7 +80,8 @@ public class container {
                 temp[X][Y]=new containerUnit();
                 temp[X][Y].set(tempName,Y*10+X);
             }
-        return temp;
+        item I=ItemList.get(ItemStringToIntegerAdapter.get(tempName));
+        return I.getID();
     }
 
     public String take(int x, int y){//max - 5x5

@@ -4,16 +4,18 @@ public class item {
     private String name;
     private String description;
     private int type;//1-junk, 2-food, 3-weapon, 4-armor, 5-another
+    private int ID;
     private int sizeX;
     private int sizeY;
     private float stat1;
     private float stat2;
     private float stat3;
 
-    public item(String name, String description, int type, int sizeX, int sizeY, float stat1, float stat2, float stat3){
+    public item(String name, String description, int type, int ID,int sizeX, int sizeY, float stat1, float stat2, float stat3){
         this.name=name;
         this.description=description;
         this.type=type;
+        this.ID=ID;
         this.sizeX=sizeX;
         this.sizeY=sizeY;
         this.stat1=stat1;
@@ -23,6 +25,7 @@ public class item {
 
     public String getName(){return name;}
     public String getDescription(){return description;}
+    public int getID(){return ID;}
 
     public int x(){return sizeX;}
     public int y(){return sizeY;}

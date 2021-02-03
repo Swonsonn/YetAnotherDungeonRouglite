@@ -7,6 +7,7 @@ import GRAPHICS.Window;
 import INPUTREADERS.Loops;
 import MAPRELATEDMODULES.MapGenerator;
 import STRUCTURES.Chest;
+import STRUCTURES.ItemStringToIntegerAdapter;
 import STRUCTURES.entity;
 import STRUCTURES.item;
 
@@ -19,7 +20,7 @@ public class GameLogic {
     private static HashMap<String, entity> Entity;
     private static Timer timer;
     private static String[] referenceMap;
-    private static Chest[] Chests;
+    public static Chest[] Chests;
 
     public static boolean ChestIsNearBy;
     public static int numOfChest;
@@ -75,6 +76,7 @@ public class GameLogic {
         System.out.println("[Logic]Loading resources");
         ResourcesManager.loadRes();
         FontManager.loadRes();
+        ItemStringToIntegerAdapter.initialise();
         ItemList.loadRes();
         System.out.println("[Logic]Resources loaded");
         Entity.put("player", new entity("player",MapGenerator.getEnterX(), MapGenerator.getEnterY()));
@@ -96,7 +98,7 @@ public class GameLogic {
             int r= rand.nextInt(ItemList.NUMOFITEMS)+1;
             item temp=ItemList.get(r);
             System.out.println(temp.getName());
-            Chests[I].inv.add(temp,0,0);
+            Chests[I].inv.add(temp.getID(),0,0);
         }
     }
 

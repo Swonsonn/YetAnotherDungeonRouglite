@@ -93,7 +93,7 @@ public class Render {
     }
 
     public static void renderINVchest(Graphics G){
-        if(GameLogic.ChestIsNearBy){
+        if(GameLogic.ChestIsNearBy && GameLogic.getSpecificChest(GameLogic.numOfChest).IsOpen==true){
             Chest chest=GameLogic.getSpecificChest(GameLogic.numOfChest);
             for(int y=0;y<4;++y) {
                 for (int x = 0; x<8; ++x) {
@@ -110,7 +110,14 @@ public class Render {
                         int X,Y;
                         X=chest.inv.X(x,y);
                         Y=chest.inv.Y(x,y);
-                        G.drawImage(ResourcesManager.get(chest.inv.take(x,y)), 100+x * Window.invRES, 100+y * Window.invRES, Window.invRES*X, Window.invRES*Y, null);
+                        if(InventoryAndChests.grabX>=100+x * Window.invRES && InventoryAndChests.grabX<100+(x+1) * Window.invRES && InventoryAndChests.grabY>=100+y * Window.invRES && InventoryAndChests.grabY<100+(y+1) * Window.invRES){
+                            int tempX, tempY;
+                            tempX=InventoryAndChests.mouseX-(InventoryAndChests.grabX-100+x * Window.invRES);
+                            tempY=InventoryAndChests.mouseY-(InventoryAndChests.grabY-100+y * Window.invRES);
+                            G.drawImage(ResourcesManager.get(chest.inv.take(x,y)), tempX, tempY, Window.invRES*X, Window.invRES*Y, null);
+                        }else{
+                            G.drawImage(ResourcesManager.get(chest.inv.take(x,y)), 100+x * Window.invRES, 100+y * Window.invRES, Window.invRES*X, Window.invRES*Y, null);
+                        }
                     }
                 }}
         }
