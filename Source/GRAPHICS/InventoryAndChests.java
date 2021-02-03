@@ -3,8 +3,6 @@ package GRAPHICS;
 import INPUTREADERS.MC;
 import INPUTREADERS.MD;
 import LOGIC.GameLogic;
-import STRUCTURES.item;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -30,8 +28,8 @@ public class InventoryAndChests extends JPanel {
     protected void paintComponent(Graphics graphics){
         super.paintComponent(graphics);
         if(GameLogic.ChestIsNearBy){
-            if(inMove==false && grabX!=-1){
-                int startX=0, startY=0, endX=0, endY=0;
+            if(!inMove && grabX!=-1){
+                int startX=0, startY=0, endX=-1, endY=-1;
                 for(int x=0;x<8;++x){
                     for(int y=0;y<4;++y){
                         if(InventoryAndChests.grabX>=100+x * Window.invRES && InventoryAndChests.grabX<100+(x+1) * Window.invRES && InventoryAndChests.grabY>=100+y * Window.invRES && InventoryAndChests.grabY<100+(y+1) * Window.invRES){
@@ -44,10 +42,13 @@ public class InventoryAndChests extends JPanel {
                         }
                     }
                 }
+                if(endX==-1 && endY==-1){
+                    endX=startX;
+                    endY=startY;
+                }
                 int  I=GameLogic.Chests[GameLogic.numOfChest].inv.pop(startX,startY);
                 if(I!=-1){
-                    if(GameLogic.Chests[GameLogic.numOfChest].inv.add(I,endX,endY)){
-                    }else{
+                    if(!GameLogic.Chests[GameLogic.numOfChest].inv.add(I,endX,endY)){
                         GameLogic.Chests[GameLogic.numOfChest].inv.add(I,startX,startY);
                     }
                 }

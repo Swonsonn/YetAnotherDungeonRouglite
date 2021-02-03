@@ -112,8 +112,8 @@ public class Render {
                         Y=chest.inv.Y(x,y);
                         if(InventoryAndChests.grabX>=100+x * Window.invRES && InventoryAndChests.grabX<100+(x+1) * Window.invRES && InventoryAndChests.grabY>=100+y * Window.invRES && InventoryAndChests.grabY<100+(y+1) * Window.invRES){
                             int tempX, tempY;
-                            tempX=InventoryAndChests.mouseX-(InventoryAndChests.grabX-100+x * Window.invRES);
-                            tempY=InventoryAndChests.mouseY-(InventoryAndChests.grabY-100+y * Window.invRES);
+                            tempX=InventoryAndChests.mouseX;//+InventoryAndChests.grabX-x*Window.invRES;
+                            tempY=InventoryAndChests.mouseY;//+InventoryAndChests.grabY-y*Window.invRES;
                             G.drawImage(ResourcesManager.get(chest.inv.take(x,y)), tempX, tempY, Window.invRES*X, Window.invRES*Y, null);
                         }else{
                             G.drawImage(ResourcesManager.get(chest.inv.take(x,y)), 100+x * Window.invRES, 100+y * Window.invRES, Window.invRES*X, Window.invRES*Y, null);
