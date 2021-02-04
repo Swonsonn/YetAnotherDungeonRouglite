@@ -87,39 +87,51 @@ public class Render {
 
     public static void renderChests(Graphics G, Chest[] chestMap, int limit){
         for(int i=0;i<limit;++i){
-            if(chestMap[i].IsOpen==false){G.drawImage(ResourcesManager.get("chest"),getX(chestMap[i].X),getY(chestMap[i].Y),Window.RES,Window.RES,null);}
+            if(!chestMap[i].IsOpen){G.drawImage(ResourcesManager.get("chest"),getX(chestMap[i].X),getY(chestMap[i].Y),Window.RES,Window.RES,null);}
             else{G.drawImage(ResourcesManager.get("openchest"),getX(chestMap[i].X),getY(chestMap[i].Y),Window.RES,Window.RES,null);}//closed chest
         }
     }
 
     public static void renderINVchest(Graphics G){
-        if(GameLogic.ChestIsNearBy && GameLogic.getSpecificChest(GameLogic.numOfChest).IsOpen==true){
+        if(GameLogic.ChestIsNearBy && GameLogic.getSpecificChest(GameLogic.numOfChest).IsOpen){
             Chest chest=GameLogic.getSpecificChest(GameLogic.numOfChest);
             for(int y=0;y<4;++y) {
                 for (int x = 0; x<8; ++x) {
                     G.setColor(Color.GRAY);
-                    G.fillRect(100+x * Window.invRES, 100+y * Window.invRES, Window.invRES, Window.invRES);
+                    G.fillRect(Window.invCALIBx+x * Window.invRES, Window.invCALIBy+y * Window.invRES, Window.invRES, Window.invRES);
                     G.setColor(Color.DARK_GRAY);
-                    G.drawRect(100+x * Window.invRES, 100+y * Window.invRES, Window.invRES, Window.invRES);
+                    G.drawRect(Window.invCALIBx+x * Window.invRES, Window.invCALIBy+y * Window.invRES, Window.invRES, Window.invRES);
                     //G.drawImage(ResourcesManager.get(chest.inv.show(x,y)), 100+x * Window.invRES, 100+y * Window.invRES, Window.invRES, Window.invRES, null);
                 }
             }
-            for(int y=0;y<4;++y) {
-                for (int x = 0; x<8; ++x) {
+            for(int Yy=0;Yy<4;++Yy) {
+                for (int Xx = 0; Xx<8; ++Xx) {
+                    int x=Xx,y=Yy;
                     if(chest.inv.getPart(x,y)==0){
                         int X,Y;
                         X=chest.inv.X(x,y);
                         Y=chest.inv.Y(x,y);
-                        if(InventoryAndChests.grabX>=100+x * Window.invRES && InventoryAndChests.grabX<100+(x+1) * Window.invRES && InventoryAndChests.grabY>=100+y * Window.invRES && InventoryAndChests.grabY<100+(y+1) * Window.invRES){
+                        if(chest.inv.getPart(x,y)!=0){
+                            int tempY=y;
+                            while(chest.inv.getPart(x,tempY)>=10)
+                                --tempY;
+                            int tempX=x;
+                            while(chest.inv.getPart(tempX,tempY)!=0)
+                                --tempX;
+                            x=tempX;
+                            y=tempY;
+                        }
+                        if(InventoryAndChests.grabX>=Window.invCALIBx+Xx * Window.invRES && InventoryAndChests.grabX<Window.invCALIBx+(Xx+1) * Window.invRES && InventoryAndChests.grabY>=Window.invCALIBy+Yy * Window.invRES && InventoryAndChests.grabY<Window.invCALIBy+(Yy+1) * Window.invRES){
                             int tempX, tempY;
-                            tempX=InventoryAndChests.mouseX;//+InventoryAndChests.grabX-x*Window.invRES;
-                            tempY=InventoryAndChests.mouseY;//+InventoryAndChests.grabY-y*Window.invRES;
+                            tempX=InventoryAndChests.mouseX+(Window.invCALIBx+(Xx)*Window.invRES-InventoryAndChests.grabX);
+                            tempY=InventoryAndChests.mouseY+(Window.invCALIBy+(Yy)*Window.invRES-InventoryAndChests.grabY);
                             G.drawImage(ResourcesManager.get(chest.inv.take(x,y)), tempX, tempY, Window.invRES*X, Window.invRES*Y, null);
                         }else{
-                            G.drawImage(ResourcesManager.get(chest.inv.take(x,y)), 100+x * Window.invRES, 100+y * Window.invRES, Window.invRES*X, Window.invRES*Y, null);
+                            G.drawImage(ResourcesManager.get(chest.inv.take(x,y)), Window.invCALIBx+Xx * Window.invRES, Window.invCALIBy+Yy * Window.invRES, Window.invRES*X, Window.invRES*Y, null);
                         }
                     }
-                }}
+                }
+            }
         }
     }
 

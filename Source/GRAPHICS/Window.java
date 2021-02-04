@@ -17,7 +17,9 @@ public class Window {
     public static int PLAYERPOSX=0;
     public static int PLAYERPOSY=0;
     public static final int RES=24;
-    public static final int invRES=48;
+    public static int invRES=48;
+    public static int invCALIBx;
+    public static int invCALIBy;
 
     public static void create() throws FileNotFoundException {
         window=new JFrame("GAME");

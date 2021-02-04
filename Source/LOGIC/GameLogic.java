@@ -1,5 +1,6 @@
 package LOGIC;
 
+import GRAPHICS.InventoryAndChests;
 import INFOREADERS.FontManager;
 import INFOREADERS.ItemList;
 import INFOREADERS.ResourcesManager;
@@ -84,6 +85,9 @@ public class GameLogic {
 
         Chests=MapGenerator.getChests();//refactor this with new class
         fillChests();
+
+        Window.invCALIBy=20;
+        Window.invCALIBx=Window.PLAYERPOSX*2-100-(Chests[0].inv.width*Window.invRES)-20;
 
         System.out.println("[Logic]"+Chests.length+" chests placed");
         timer = new Timer(20,new Loops());

@@ -30,13 +30,13 @@ public class InventoryAndChests extends JPanel {
         if(GameLogic.ChestIsNearBy){
             if(!inMove && grabX!=-1){
                 int startX=0, startY=0, endX=-1, endY=-1;
-                for(int x=0;x<8;++x){
-                    for(int y=0;y<4;++y){
-                        if(InventoryAndChests.grabX>=100+x * Window.invRES && InventoryAndChests.grabX<100+(x+1) * Window.invRES && InventoryAndChests.grabY>=100+y * Window.invRES && InventoryAndChests.grabY<100+(y+1) * Window.invRES){
+                for(int x=0;x<GameLogic.Chests[GameLogic.numOfChest].inv.width;++x){
+                    for(int y=0;y<GameLogic.Chests[GameLogic.numOfChest].inv.height;++y){
+                        if(InventoryAndChests.grabX>=Window.invCALIBx+x * Window.invRES && InventoryAndChests.grabX<Window.invCALIBx+(x+1) * Window.invRES && InventoryAndChests.grabY>=Window.invCALIBy+y * Window.invRES && InventoryAndChests.grabY<Window.invCALIBy+(y+1) * Window.invRES){
                             startX=x;
                             startY=y;
                         }
-                        if(InventoryAndChests.mouseX>=100+x * Window.invRES && InventoryAndChests.mouseX<100+(x+1) * Window.invRES && InventoryAndChests.mouseY>=100+y * Window.invRES && InventoryAndChests.mouseY<100+(y+1) * Window.invRES){
+                        if(InventoryAndChests.mouseX>=Window.invCALIBx+x * Window.invRES && InventoryAndChests.mouseX<Window.invCALIBx+(x+1) * Window.invRES && InventoryAndChests.mouseY>=Window.invCALIBy+y * Window.invRES && InventoryAndChests.mouseY<Window.invCALIBy+(y+1) * Window.invRES){
                             endX=x;
                             endY=y;
                         }

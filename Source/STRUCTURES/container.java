@@ -3,8 +3,8 @@ package STRUCTURES;
 import INFOREADERS.ItemList;
 
 public class container {
-    private final int height;
-    private final int width;
+    public int height;
+    public int width;
     private containerUnit[][] container;
 
     public int MoveX;
@@ -30,6 +30,16 @@ public class container {
     public boolean add(int ID, int X, int Y){
         item Item=ItemList.get(ID);
         if(!Item.getName().equals("empty")){
+            /*if(container[X][Y].getPart()!=0){
+                int tempY=Y;
+                while(container[X][tempY].getPart()>=10)
+                    --tempY;
+                int tempX=X;
+                while(container[tempX][tempY].getPart()!=0)
+                    --tempX;
+                X=tempX;
+                Y=tempY;
+            }*/
             if(X+Item.x()<=width && Y+Item.y()<=height){
                 for(int x=0;x<Item.x();++x){
                     for(int y=0;y<Item.y();++y){
@@ -67,6 +77,16 @@ public class container {
 
     public int pop(int x, int y){//max - 5x5
         if(!container[x][y].getName().equals("empty")){
+            if(container[x][y].getPart()!=0){
+                int tempY=y;
+                while(container[x][tempY].getPart()>=10)
+                    --tempY;
+                int tempX=x;
+                while(container[tempX][tempY].getPart()!=0)
+                    --tempX;
+                x=tempX;
+                y=tempY;
+            }
             String name=container[x][y].getName();
             for(int X=0;X<X(x,y);++X)
                 for(int Y=0;Y<Y(x,y);++Y){
