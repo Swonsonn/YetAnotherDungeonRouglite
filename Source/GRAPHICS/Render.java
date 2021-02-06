@@ -95,8 +95,8 @@ public class Render {
     public static void renderINVchest(Graphics G){
         if(GameLogic.ChestIsNearBy && GameLogic.getSpecificChest(GameLogic.numOfChest).IsOpen){
             Chest chest=GameLogic.getSpecificChest(GameLogic.numOfChest);
-            for(int y=0;y<4;++y) {
-                for (int x = 0; x<8; ++x) {
+            for(int y=0;y<GameLogic.Chests[GameLogic.numOfChest].inv.height;++y) {
+                for (int x = 0; x<GameLogic.Chests[GameLogic.numOfChest].inv.width; ++x) {
                     G.setColor(Color.GRAY);
                     G.fillRect(Window.invCALIBx+x * Window.invRES, Window.invCALIBy+y * Window.invRES, Window.invRES, Window.invRES);
                     G.setColor(Color.DARK_GRAY);
@@ -104,34 +104,33 @@ public class Render {
                     //G.drawImage(ResourcesManager.get(chest.inv.show(x,y)), 100+x * Window.invRES, 100+y * Window.invRES, Window.invRES, Window.invRES, null);
                 }
             }
-            for(int Yy=0;Yy<4;++Yy) {
-                for (int Xx = 0; Xx<8; ++Xx) {
-                    int x=Xx,y=Yy;
-                    if(chest.inv.getPart(x,y)==0){
-                        int X,Y;
-                        X=chest.inv.X(x,y);
-                        Y=chest.inv.Y(x,y);
-                        if(chest.inv.getPart(x,y)!=0){
-                            int tempY=y;
-                            while(chest.inv.getPart(x,tempY)>=10)
-                                --tempY;
-                            int tempX=x;
-                            while(chest.inv.getPart(tempX,tempY)!=0)
-                                --tempX;
-                            x=tempX;
-                            y=tempY;
+            for(int x=0;x<GameLogic.Chests[GameLogic.numOfChest].inv.width;++x)
+                for(int y=0;y<GameLogic.Chests[GameLogic.numOfChest].inv.height;++y){
+                    if(InventoryAndChests.grabX>=Window.invCALIBx+x * Window.invRES && InventoryAndChests.grabX<Window.invCALIBx+(x+1) * Window.invRES && InventoryAndChests.grabY>=Window.invCALIBy+y * Window.invRES && InventoryAndChests.grabY<Window.invCALIBy+(y+1) * Window.invRES){
+                        if(!GameLogic.Chests[GameLogic.numOfChest].inv.take(x,y).equals("empty")){
+                            int tempX,tempY;
+                            int X=x,Y=y;
+                            if(GameLogic.Chests[GameLogic.numOfChest].inv.getPart(x,y)==0){
+                                tempX=InventoryAndChests.mouseX+(Window.invCALIBx+(x)*Window.invRES-InventoryAndChests.grabX);
+                                tempY=InventoryAndChests.mouseY+(Window.invCALIBy+(y)*Window.invRES-InventoryAndChests.grabY);
+                            }else{
+                                while(GameLogic.Chests[GameLogic.numOfChest].inv.getPart(x,Y)>=10)--Y;
+                                while(GameLogic.Chests[GameLogic.numOfChest].inv.getPart(X,Y)!=0)--X;
+
+                                InventoryAndChests.grabX=InventoryAndChests.grabX-(x-X)*Window.invRES;
+                                InventoryAndChests.grabY=InventoryAndChests.grabY-(y-Y)*Window.invRES;
+
+                                tempX=InventoryAndChests.mouseX+(Window.invCALIBx+(X)*Window.invRES-InventoryAndChests.grabX);
+                                tempY=InventoryAndChests.mouseY+(Window.invCALIBy+(Y)*Window.invRES-InventoryAndChests.grabY);
+                            }
+                            G.drawImage(ResourcesManager.get(chest.inv.take(X,Y)), tempX, tempY, Window.invRES*chest.inv.X(X,Y), Window.invRES*chest.inv.Y(X,Y), null);
                         }
-                        if(InventoryAndChests.grabX>=Window.invCALIBx+Xx * Window.invRES && InventoryAndChests.grabX<Window.invCALIBx+(Xx+1) * Window.invRES && InventoryAndChests.grabY>=Window.invCALIBy+Yy * Window.invRES && InventoryAndChests.grabY<Window.invCALIBy+(Yy+1) * Window.invRES){
-                            int tempX, tempY;
-                            tempX=InventoryAndChests.mouseX+(Window.invCALIBx+(Xx)*Window.invRES-InventoryAndChests.grabX);
-                            tempY=InventoryAndChests.mouseY+(Window.invCALIBy+(Yy)*Window.invRES-InventoryAndChests.grabY);
-                            G.drawImage(ResourcesManager.get(chest.inv.take(x,y)), tempX, tempY, Window.invRES*X, Window.invRES*Y, null);
-                        }else{
-                            G.drawImage(ResourcesManager.get(chest.inv.take(x,y)), Window.invCALIBx+Xx * Window.invRES, Window.invCALIBy+Yy * Window.invRES, Window.invRES*X, Window.invRES*Y, null);
+                    }else{
+                        if(!GameLogic.Chests[GameLogic.numOfChest].inv.take(x,y).equals("empty")&&GameLogic.Chests[GameLogic.numOfChest].inv.getPart(x,y)==0){
+                            G.drawImage(ResourcesManager.get(chest.inv.take(x, y)), Window.invCALIBx + x * Window.invRES, Window.invCALIBy + y * Window.invRES, Window.invRES * chest.inv.X(x, y), Window.invRES * chest.inv.Y(x, y), null);
                         }
                     }
                 }
-            }
         }
     }
 

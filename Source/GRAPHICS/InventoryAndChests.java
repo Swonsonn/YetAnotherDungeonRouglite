@@ -55,6 +55,7 @@ public class InventoryAndChests extends JPanel {
                 grabX=-1;
                 grabY=-1;
             }
+            System.out.println("X:"+grabX+" Y:"+grabY);
             Render.renderINVchest(graphics);
         }
     }
